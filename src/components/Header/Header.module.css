@@ -1,0 +1,23 @@
+header {
+  background: #3C6CCC;
+  color:      #FFFFFF;
+}
+
+header > span {
+  display:   block;
+  font-size: 24px;
+  margin:    0 0 0 193px;
+  padding:   15px;
+  position:  relative;
+}
+
+header > span::before {
+  background:      url('./img/logo.png') 0 0 no-repeat;
+  background-size: contain;
+  content:         '';
+  height:          44px;
+  left:            -183px;
+  position:        absolute;
+  top:             10px;
+  width:           183px;
+}
