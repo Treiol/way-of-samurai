@@ -1,0 +1,23 @@
+.sidebar {
+  background:     #799ADC;
+  display:        flex;
+  flex-direction: column;
+  padding:        10px 60px 10px 10px;
+}
+
+.sidebar > .item {
+  margin: 8px;
+}
+
+.sidebar > .item > a {
+  color:           #FFFFFF;
+  text-decoration: none;
+}
+
+.sidebar > .item > a.activeLink {
+  color: gold;
+}
+
+.sidebar > .item > a:hover {
+  text-decoration: underline;
+}
