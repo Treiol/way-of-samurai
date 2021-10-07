@@ -2,6 +2,12 @@ import { createRef } from 'react';
 import style from './Profile.module.css';
 
 const Profile = (props) => {
+  // ---------------------------------------------------
+  const addPostClick = () => {
+    props.addPost(textareaPost.current.value);
+    textareaPost.current.value = '';
+  };
+  // ---------------------------------------------------
   const textareaPost = createRef();
   return (
     <div className={`content ${style.content} ${style.profile}`}>
@@ -10,7 +16,7 @@ const Profile = (props) => {
         <div className={style.postForm}>
           <h1>Новая запись</h1>
           <textarea ref={textareaPost}></textarea>
-          <input type="button" value="Добавить" />
+          <input type="button" value="Добавить" onClick={addPostClick} />
         </div>
         <div></div>
       </div>

@@ -6,14 +6,14 @@ import Feed    from './components/Content/Feed/Feed';
 import Profile from './components/Content/Profile/Profile';
 import Dialogs from './components/Content/Dialogs/Dialogs';
 
-const App = (/* props */) => {
+const App = (props) => {
   return (
     <div className="App">
       <Header />
       <div className="content-container">
         <Sidebar />
         <Route path="/." exact><Feed /></Route>
-        <Route path="/profile" exact><Profile /></Route>
+        <Route path="/profile" exact><Profile addPost={props.addPost} /></Route>
         <Route path="/dialogs" exact><Dialogs /></Route>
       </div>
     </div>
