@@ -12,7 +12,7 @@ const App = () => {
       <div className="content-container">
         <Sidebar />
         <div className="content">
-          <Route path="/." exact><Profile /></Route>
+          <Route path="/profile" exact><Profile /></Route>
           <Route path="/dialogs" exact><Dialogs /></Route>
         </div>
       </div>

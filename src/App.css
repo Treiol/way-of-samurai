@@ -1,9 +1,27 @@
+#root {
+  display: flex;
+  height:  100%;
+}
+
 .App {
   display:        flex;
   flex-direction: column;
+  height:         100%;
+  margin:         0 auto;
+  max-width:      1280px;
+  min-width:      1280px;
+  width:          1280px;
 }
 
 .App > .content-container {
   background: #F2F2F2;
   display:    flex;
+  height:     inherit;
+}
+
+.App > .content-container > .content {
+  display:    flex;
+  height:     inherit;
+  overflow-y: auto;
+  width:      100%;
 }
