@@ -6,7 +6,7 @@ import Feed    from './components/Content/Feed/Feed';
 import Profile from './components/Content/Profile/Profile';
 import Dialogs from './components/Content/Dialogs/Dialogs';
 
-const App = () => {
+const App = (/* props */) => {
   return (
     <div className="App">
       <Header />
@@ -18,6 +18,6 @@ const App = () => {
       </div>
     </div>
   );
-}
+};
 
 export default App;
