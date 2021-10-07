@@ -1,12 +1,12 @@
 #root {
   display: flex;
-  height:  100%;
+  height:  inherit;
 }
 
 .App {
-  display:        flex;
+  display:        inherit;
   flex-direction: column;
-  height:         100%;
+  height:         inherit;
   margin:         0 auto;
   max-width:      1280px;
   min-width:      1280px;
@@ -15,13 +15,12 @@
 
 .App > .content-container {
   background: #F2F2F2;
-  display:    flex;
+  display:    inherit;
   height:     inherit;
 }
 
 .App > .content-container > .content {
-  display:    flex;
-  height:     inherit;
-  overflow-y: auto;
-  width:      100%;
+  display: inherit;
+  height:  inherit;
+  width:   100%;
 }

@@ -1,0 +1,4 @@
+.content.feed {
+  flex-direction: column;
+  overflow-y:     auto;
+}

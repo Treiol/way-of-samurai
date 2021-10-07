@@ -1,6 +1,8 @@
+//import style from './Dialogs.module.css';
+
 const Dialogs = () => {
   return (
-    <div>Содержание диалогов</div>
+    <div className={`content`}>Содержание диалогов</div>
   );
 };
 
