@@ -1,0 +1,59 @@
+.content.profile {
+  flex-direction: column;
+}
+
+.content.profile > .userInfo {
+  background:    #3C6CCC80;
+  border-radius: 8px;
+  display:       inherit;
+  height:        230px;
+  margin:        10px;
+  max-height:    230px;
+  min-height:    230px;
+}
+
+.content.profile > .userInfo > span {
+  color:     #FFFFFF;
+  font-size: 22px;
+  height:    fit-content;
+  margin:    auto;
+}
+
+.content.profile > .userPosts {
+  background:     #3C6CCC33;
+  border-radius:  8px;
+  display:        inherit;
+  flex-direction: column;
+  height:         100%;
+  margin:         0 10px 10px 10px;
+}
+
+.content.profile > .userPosts > .postForm {
+  display:        inherit;
+  flex-direction: column;
+  height:         144px;
+  max-height:     144px;
+  min-height:     144px;
+  padding:        12px;
+}
+
+.content.profile > .userPosts > .postForm > h1 {
+  font-size:   20px;
+  font-weight: 400;
+  margin:      0 0 8px 0;
+}
+
+.content.profile > .userPosts > .postForm > textarea {
+  border:        none;
+  border-radius: 6px;
+  font-size:     14px;
+  height:        100%;
+  margin:        0 0 8px 0;
+  outline:       none;
+  padding:       4px;
+  resize:        none;
+}
+
+.content.profile > .userPosts > .postForm > input {
+  margin: 0 auto 0 0;
+}
