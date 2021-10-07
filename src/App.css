@@ -4,5 +4,6 @@
 }
 
 .App > .content-container {
-  display: flex;
+  background: #F2F2F2;
+  display:    flex;
 }
