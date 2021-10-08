@@ -32,9 +32,9 @@
   display:        inherit;
   flex-direction: column;
   height:         144px;
+  margin:         12px;
   max-height:     144px;
   min-height:     144px;
-  padding:        12px;
 }
 
 .content.profile > .userPosts > .postForm > h1 {
@@ -56,4 +56,13 @@
 
 .content.profile > .userPosts > .postForm > input {
   margin: 0 auto 0 0;
+}
+
+.content.profile > .userPosts > .postList {
+  display:        inherit;
+  flex-direction: column;
+  justify-items:  start;
+  height:         100%;
+  margin:         0 12px 12px 12px;
+  overflow-y:     auto;
 }

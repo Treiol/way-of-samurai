@@ -1,0 +1,47 @@
+.post {
+  display:        inherit;
+  flex-direction: column;
+  margin:         0 0 12px 0;
+}
+
+.post:last-child {
+  margin: 0;
+}
+
+.post > .messageContainer {
+  display: inherit;
+}
+
+.post > .messageContainer > .userAvatar {
+  background:    #00000080;
+  border-radius: 24px;
+  color:         #FFFFFF;
+  display:       inherit;
+  font-size:     12px;
+  height:        48px;
+  margin:        0 10px 10px 0;
+  max-width:     48px;
+  min-width:     48px;
+  width:         48px;
+}
+
+.post > .messageContainer > .userAvatar > span {
+  height: fit-content;
+  margin: auto;
+}
+
+.post > .messageContainer > .message {
+  background:    #FFFFFF9E;
+  border-radius: 6px;
+  overflow-y:    visible;
+  padding:       3px 7px 4px 7px;
+  width:         100%;
+}
+
+.post > .likesCount {
+  background:    #FF005E80;
+  border-radius: 6px;
+  color:         #FFFFFFD9;
+  margin:        6px 0 0 auto;
+  padding:       3px 7px 4px 7px;
+}
