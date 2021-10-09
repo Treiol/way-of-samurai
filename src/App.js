@@ -13,7 +13,12 @@ const App = (props) => {
       <div className="content-container">
         <Sidebar />
         <Route path="/." exact><Feed /></Route>
-        <Route path="/profile" exact><Profile state={props.state} addPost={props.addPost} /></Route>
+        <Route path="/profile" exact>
+          <Profile state={props.state}
+            onAddPost={props.onAddPost}
+            onUpdateNewPostText={props.onUpdateNewPostText}
+          />
+        </Route>
         <Route path="/dialogs" exact><Dialogs /></Route>
       </div>
     </div>

@@ -4,16 +4,25 @@ const state = {
   dialogsData: { },
   feedData:    { },
   profileData: {
-    posts: []
+    newPostText: '',
+    posts:       []
   }
 };
 
-export const addPost = (message) => {
+export const addPost = () => {
   const newPost = {
-    id: state.profileData.posts.length + 1, message, likesCount: 0
+    id:         state.profileData.posts.length + 1,
+    message:    state.profileData.newPostText,
+    likesCount: 0
   };
   state.profileData.posts.unshift(newPost);
-  rerenderEntireTree(state, addPost);
+  state.profileData.newPostText = '';
+  rerenderEntireTree(state, addPost, updateNewPostText);
+};
+
+export const updateNewPostText = (newPostText) => {
+  state.profileData.newPostText = newPostText;
+  rerenderEntireTree(state, addPost, updateNewPostText);
 };
 
 export default state;
