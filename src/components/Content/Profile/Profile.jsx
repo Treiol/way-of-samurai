@@ -4,14 +4,14 @@ import Post  from './Post/Post';
 const Profile = (props) => {
   // ---------------------------------------------------
   const addPostClick = () => {
-    if (props.store.getState().profileData.newPostText.trim() === '') {
+    if (props.data.newPostText.trim() === '') {
       alert('Текст записи не может быть пустым!');
       return;
     }
-    props.store.addPost();
+    props.onAddPost();
   };
   // ---------------------------------------------------
-  const posts = props.store.getState().profileData.posts.map(
+  const posts = props.data.posts.map(
     (post) => <Post message={post.message} likesCount={post.likesCount} />
   );
   return (
@@ -20,8 +20,8 @@ const Profile = (props) => {
       <div className={style.userPosts}>
         <div className={style.postForm}>
           <h1>Новая запись</h1>
-          <textarea value={props.store.getState().profileData.newPostText}
-            onChange={(sender) => { props.store.updateNewPostText(sender.target.value); }}
+          <textarea value={props.data.newPostText}
+            onChange={(sender) => { props.onUpdateNewPostText(sender.target.value); }}
           />
           <input type="button" value="Добавить" onClick={addPostClick} />
         </div>
