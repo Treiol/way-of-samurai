@@ -1,28 +1,33 @@
-import { rerenderEntireTree } from '../render';
-
-const state = {
-  dialogsData: { },
-  feedData:    { },
-  profileData: {
-    newPostText: '',
-    posts:       []
+const store = {
+  _state: {
+    dialogsData: { },
+    feedData:    { },
+    profileData: {
+      newPostText: '',
+      posts:       []
+    }
+  },
+  _rerenderEntireTree() { },
+  addPost() {
+    const newPost = {
+      id:         this._state.profileData.posts.length + 1,
+      message:    this._state.profileData.newPostText,
+      likesCount: 0
+    };
+    this._state.profileData.posts.unshift(newPost);
+    this._state.profileData.newPostText = '';
+    this._rerenderEntireTree(this);
+  },
+  getState() {
+    return this._state;
+  },
+  subcribe(observer) {
+    this._rerenderEntireTree = observer;
+  },
+  updateNewPostText(newPostText) {
+    this._state.profileData.newPostText = newPostText;
+    this._rerenderEntireTree(this);
   }
 };
 
-export const addPost = () => {
-  const newPost = {
-    id:         state.profileData.posts.length + 1,
-    message:    state.profileData.newPostText,
-    likesCount: 0
-  };
-  state.profileData.posts.unshift(newPost);
-  state.profileData.newPostText = '';
-  rerenderEntireTree(state, addPost, updateNewPostText);
-};
-
-export const updateNewPostText = (newPostText) => {
-  state.profileData.newPostText = newPostText;
-  rerenderEntireTree(state, addPost, updateNewPostText);
-};
-
-export default state;
+export default store;
