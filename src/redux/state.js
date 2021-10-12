@@ -1,9 +1,23 @@
 const ACTION_ADD_POST             = 0;
-const ACTION_UPDATE_NEW_POST_TEXT = 1;
+const ACTION_LOAD_DIALOG          = 1;
+const ACTION_UPDATE_NEW_POST_TEXT = 2;
 
 const store = {
   _state: {
-    dialogsData: { },
+    dialogsData: {
+      contacts: [{
+        id: 1, name: 'Алексей'
+      }, {
+        id: 2, name: 'Андрей'
+      }, {
+        id: 3, name: 'Антон'
+      }, {
+        id: 4, name: 'Сергей'
+      }],
+      currentContactId: 0,
+      dialogs:          [],
+      
+    },
     feedData:    { },
     profileData: {
       newPostText: '',
@@ -21,6 +35,10 @@ const store = {
         };
         this._state.profileData.posts.unshift(newPost);
         this._state.profileData.newPostText = '';
+        break;
+      case ACTION_LOAD_DIALOG:
+        // ...
+        this._state.dialogsData.currentContactId = action.contactId;
         break;
       case ACTION_UPDATE_NEW_POST_TEXT:
         this._state.profileData.newPostText = action.newPostText;
@@ -40,6 +58,10 @@ const store = {
 
 export const addPostActionCreator = () => ({
   type: ACTION_ADD_POST
+});
+
+export const loadDialogActionCreator = (contactId) => ({
+  type: ACTION_LOAD_DIALOG, contactId
 });
 
 export const updateNewPostTextActionCreator = (newPostText) => ({

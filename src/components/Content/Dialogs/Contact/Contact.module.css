@@ -1,0 +1,40 @@
+.contact {
+  background:    #FFFFFF9E;
+  border-radius: 6px;
+  cursor:        pointer;
+  display:       inherit;
+  margin:        0 0 12px 0;
+  padding:       8px;
+}
+
+.contact.selected {
+  background: #FFFFFFE6;
+}
+
+.contact:last-child {
+  margin: 0;
+}
+
+.contact > .userAvatar {
+  background:    #00000080;
+  border-radius: 24px;
+  color:         #FFFFFF;
+  display:       inherit;
+  font-size:     12px;
+  height:        48px;
+  margin:        0 10px 0 0;
+  max-width:     48px;
+  min-width:     48px;
+  width:         48px;
+}
+
+.contact > .userAvatar > span {
+  height: fit-content;
+  margin: auto;
+}
+/*
+.contact > .userName {
+  
+  overflow-y:    visible;
+  
+}*/

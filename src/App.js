@@ -16,7 +16,9 @@ const App = (props) => {
         <Route path="/profile" exact>
           <Profile data={props.state.profileData} onDispatch={props.onDispatch} />
         </Route>
-        <Route path="/dialogs" exact><Dialogs /></Route>
+        <Route path="/dialogs" exact>
+          <Dialogs data={props.state.dialogsData} onDispatch={props.onDispatch} />
+        </Route>
       </div>
     </div>
   );
