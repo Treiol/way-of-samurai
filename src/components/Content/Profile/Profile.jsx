@@ -1,6 +1,6 @@
 import style from './Profile.module.css';
 import Post  from './Post/Post';
-import { ACTION_ADD_POST, ACTION_UPDATE_NEW_POST_TEXT } from '../../../redux/state';
+import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/state';
 
 const Profile = (props) => {
   // ---------------------------------------------------
@@ -9,11 +9,13 @@ const Profile = (props) => {
       alert('Текст записи не может быть пустым!');
       return;
     }
-    props.onDispatch({ type: ACTION_ADD_POST });
+    const action = addPostActionCreator();
+    props.onDispatch(action);
   };
   // ---------------------------------------------------
   const postTextChange = (value) => {
-    props.onDispatch({ type: ACTION_UPDATE_NEW_POST_TEXT, newPostText: value });
+    const action = updateNewPostTextActionCreator(value);
+    props.onDispatch(action);
   };
   // ---------------------------------------------------
   const posts = props.data.posts.map(

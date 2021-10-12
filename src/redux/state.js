@@ -1,5 +1,5 @@
-export const ACTION_ADD_POST             = 0;
-export const ACTION_UPDATE_NEW_POST_TEXT = 1;
+const ACTION_ADD_POST             = 0;
+const ACTION_UPDATE_NEW_POST_TEXT = 1;
 
 const store = {
   _state: {
@@ -37,5 +37,13 @@ const store = {
     this._callSubscriber = observer;
   }
 };
+
+export const addPostActionCreator = () => ({
+  type: ACTION_ADD_POST
+});
+
+export const updateNewPostTextActionCreator = (newPostText) => ({
+  type: ACTION_UPDATE_NEW_POST_TEXT, newPostText
+});
 
 export default store;
