@@ -5,18 +5,14 @@ const ACTION_UPDATE_NEW_POST_TEXT = 2;
 const store = {
   _state: {
     dialogsData: {
-      contacts: [{
-        id: 1, name: 'Алексей'
-      }, {
-        id: 2, name: 'Андрей'
-      }, {
-        id: 3, name: 'Антон'
-      }, {
-        id: 4, name: 'Сергей'
-      }],
+      contacts: [
+        { id: 1, name: 'Алексей' },
+        { id: 2, name: 'Андрей' },
+        { id: 3, name: 'Антон' },
+        { id: 4, name: 'Сергей' }
+      ],
       currentContactId: 0,
-      dialogs:          [],
-      
+      dialogs:          []
     },
     feedData:    { },
     profileData: {

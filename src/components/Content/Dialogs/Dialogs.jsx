@@ -4,8 +4,8 @@ import Contact from './Contact/Contact';
 const Dialogs = (props) => {
   const contacts = props.data.contacts.map(
     (contact) => (contact.id === props.data.currentContactId)
-      ? <Contact id={contact.id} name={contact.name} selected />
-      : <Contact id={contact.id} name={contact.name} />
+      ? <Contact id={contact.id} key={`contact${contact.id}`} name={contact.name} onDispatch={props.onDispatch} selected />
+      : <Contact id={contact.id} key={`contact${contact.id}`} name={contact.name} onDispatch={props.onDispatch} />
   );
   return (
     <div className={`content ${style.content} ${style.dialogs}`}>

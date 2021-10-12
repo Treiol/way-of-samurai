@@ -19,7 +19,7 @@ const Profile = (props) => {
   };
   // ---------------------------------------------------
   const posts = props.data.posts.map(
-    (post) => <Post message={post.message} likesCount={post.likesCount} />
+    (post) => <Post key={`post${post.id}`} message={post.message} likesCount={post.likesCount} />
   );
   return (
     <div className={`content ${style.content} ${style.profile}`}>
