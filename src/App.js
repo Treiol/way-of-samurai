@@ -14,10 +14,7 @@ const App = (props) => {
         <Sidebar />
         <Route path="/." exact><Feed /></Route>
         <Route path="/profile" exact>
-          <Profile data={props.state.profileData}
-            onAddPost={props.onAddPost}
-            onUpdateNewPostText={props.onUpdateNewPostText}
-          />
+          <Profile data={props.state.profileData} onDispatch={props.onDispatch} />
         </Route>
         <Route path="/dialogs" exact><Dialogs /></Route>
       </div>

@@ -1,5 +1,6 @@
 import style from './Profile.module.css';
 import Post  from './Post/Post';
+import { ACTION_ADD_POST, ACTION_UPDATE_NEW_POST_TEXT } from '../../../redux/state';
 
 const Profile = (props) => {
   // ---------------------------------------------------
@@ -8,7 +9,11 @@ const Profile = (props) => {
       alert('Текст записи не может быть пустым!');
       return;
     }
-    props.onAddPost();
+    props.onDispatch({ type: ACTION_ADD_POST });
+  };
+  // ---------------------------------------------------
+  const postTextChange = (value) => {
+    props.onDispatch({ type: ACTION_UPDATE_NEW_POST_TEXT, newPostText: value });
   };
   // ---------------------------------------------------
   const posts = props.data.posts.map(
@@ -21,7 +26,7 @@ const Profile = (props) => {
         <div className={style.postForm}>
           <h1>Новая запись</h1>
           <textarea value={props.data.newPostText}
-            onChange={(sender) => { props.onUpdateNewPostText(sender.target.value); }}
+            onChange={(sender) => { postTextChange(sender.target.value); }}
           />
           <input type="button" value="Добавить" onClick={addPostClick} />
         </div>
