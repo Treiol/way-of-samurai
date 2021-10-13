@@ -10,19 +10,10 @@ const store = {
         { id: 1, name: 'Алексей' },
         { id: 2, name: 'Андрей' },
         { id: 3, name: 'Антон' },
-        { id: 4, name: 'Сергей' }
+        { id: 4, name: 'Владислав' },
+        { id: 5, name: 'Сергей' }
       ],
-      dialogs: [/*
-        {
-          contactId: (int),
-          messages: [
-            { chain: [(string), (string), ...], income: (bool) },
-            ...
-          ],
-          newMessageText: (string)
-        },
-        ...
-      */]
+      dialogs: { }
     },
     feedData:    { },
     profileData: {
@@ -31,18 +22,6 @@ const store = {
     }
   },
   _callSubscriber() { },
-  _getDialogIndex(contactId) {
-    let result = -1;
-    if (this._state.dialogsData.dialogs.length === 0) { return result; }
-    for (let i = 0; i < this._state.dialogsData.dialogs.length; i++) {
-      const dialog = this._state.dialogsData.dialogs[i];
-      if (dialog.contactId === contactId) {
-        result = i;
-        break;
-      }
-    }
-    return result;
-  },
   dispatch(action) {
     switch (action.type) {
       case ACTION_ADD_POST:
@@ -53,26 +32,29 @@ const store = {
         };
         this._state.profileData.posts.unshift(newPost);
         this._state.profileData.newPostText = '';
+        this._callSubscriber(this);
         break;
       case ACTION_INIT_DIALOG:
-        if (this._getDialogIndex(action.contactId) >= 0) { break; }
-        this._state.dialogsData.dialogs.push({
-          contactId:      action.contactId,
+        if (this._state.dialogsData.dialogs[action.contactId]) { break; }
+        this._state.dialogsData.dialogs[action.contactId] = {
           messages:       [],
           newMessageText: ''
-        });
+        };
+        this._callSubscriber(this);
         break;
       case ACTION_UPDATE_NEW_MESSAGE_TEXT:
-        const dialogIndex = this._getDialogIndex(action.contactId);
-        this._state.dialogsData.dialogs[dialogIndex].newMessageText = action.newMessageText;
+        const dialog = this._state.dialogsData.dialogs[action.contactId];
+        if (!dialog) { break; }
+        dialog.newMessageText = action.newMessageText;
+        this._callSubscriber(this);
         break;
       case ACTION_UPDATE_NEW_POST_TEXT:
         this._state.profileData.newPostText = action.newPostText;
+        this._callSubscriber(this);
         break;
       default:
         console.warn('state store: no action dispatched!');
     }
-    this._callSubscriber(this);
   },
   getState() {
     return this._state;

@@ -7,7 +7,7 @@ const Dialogs = (props) => {
   // ---------------------------------------------------
   const messageTextChange = (value) => {
     if (!currentContactId) { return; }
-    const action = updateNewMessageTextActionCreator(parseInt(currentContactId), value);
+    const action = updateNewMessageTextActionCreator(currentContactId, value);
     props.onDispatch(action);
   };
   // ---------------------------------------------------
