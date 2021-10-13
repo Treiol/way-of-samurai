@@ -29,7 +29,7 @@ const Profile = (props) => {
         <div className={style.postForm}>
           <h1>Новая запись</h1>
           <textarea value={props.data.newPostText}
-            onChange={(sender) => { postTextChange(sender.target.value); }}
+            onChange={(event) => { postTextChange(event.target.value); }}
           />
           <input type="button" value="Добавить" onClick={addPostClick} />
         </div>
