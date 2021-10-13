@@ -1,21 +1,14 @@
 import style from './Contact.module.css';
-import { loadDialogActionCreator } from '../../../../redux/state';
+import { NavLink } from 'react-router-dom';
 
 const Contact = (props) => {
-  // ---------------------------------------------------
-  const contactClick = () => {
-    if (props.selected) { return; }
-    const action = loadDialogActionCreator(props.id);
-    props.onDispatch(action);
-  };
-  // ---------------------------------------------------
   const contactClassName = (props.selected)
     ? `${style.contact} ${style.selected}` : style.contact;
   return (
-    <div className={contactClassName} onClick={contactClick}>
+    <NavLink className={contactClassName} to={`/dialogs/${props.id}`}>
       <div className={style.userAvatar}><span>ava</span></div>
       <div className={style.userName}>{props.name}</div>
-    </div>
+    </NavLink>
   );
 };
 

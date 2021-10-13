@@ -1,10 +1,10 @@
 .contact {
   background:    #FFFFFF9E;
   border-radius: 6px;
-  cursor:        pointer;
   display:       inherit;
   margin:        0 0 12px 0;
   padding:       8px;
+  text-decoration: none;
 }
 
 .contact.selected {
@@ -32,9 +32,8 @@
   height: fit-content;
   margin: auto;
 }
-/*
+
 .contact > .userName {
-  
-  overflow-y:    visible;
-  
-}*/
+  color:      #000000;
+  overflow-y: visible; 
+}
