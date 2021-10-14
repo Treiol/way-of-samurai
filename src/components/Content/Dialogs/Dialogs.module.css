@@ -40,3 +40,18 @@
   font-weight: 400;
   margin:      0 0 8px 0;
 }
+
+.content.dialogs > .dialog > .messageForm > textarea {
+  border:        none;
+  border-radius: 6px;
+  font-size:     14px;
+  height:        100%;
+  margin:        0 0 8px 0;
+  outline:       none;
+  padding:       4px;
+  resize:        none;
+}
+
+.content.dialogs > .dialog > .messageForm > input {
+  margin: 0 0 0 auto;
+}
