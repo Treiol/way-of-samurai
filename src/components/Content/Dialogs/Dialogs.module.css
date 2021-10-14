@@ -22,6 +22,7 @@
   display:        inherit;
   flex-direction: column;
   height:         100%;
+  overflow-y:     auto;
 }
 
 .content.dialogs > .dialog > .messageForm {
