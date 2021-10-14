@@ -10,3 +10,33 @@
   padding:        12px;
   width:          300px;
 }
+
+.content.dialogs > .dialog {
+  display:        inherit;
+  flex-direction: column;
+  margin:         10px 10px 10px 0;
+  width:          100%;
+}
+
+.content.dialogs > .dialog > .messageChains {
+  display:        inherit;
+  flex-direction: column;
+  height:         100%;
+}
+
+.content.dialogs > .dialog > .messageForm {
+  background:     #3C6CCC33;
+  border-radius:  8px;
+  display:        inherit;
+  flex-direction: column;
+  height:         144px;
+  max-height:     144px;
+  min-height:     144px;
+  padding:        12px;
+}
+
+.content.dialogs > .dialog > .messageForm > h1 {
+  font-size:   18px;
+  font-weight: 400;
+  margin:      0 0 8px 0;
+}

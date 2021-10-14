@@ -1,7 +1,8 @@
 const ACTION_ADD_POST                = 0;
 const ACTION_INIT_DIALOG             = 1;
-const ACTION_UPDATE_NEW_MESSAGE_TEXT = 2;
-const ACTION_UPDATE_NEW_POST_TEXT    = 3;
+const ACTION_SEND_MESSAGE            = 2;
+const ACTION_UPDATE_NEW_MESSAGE_TEXT = 3;
+const ACTION_UPDATE_NEW_POST_TEXT    = 4;
 
 const store = {
   _state: {
@@ -42,6 +43,23 @@ const store = {
         };
         this._callSubscriber(this);
         break;
+      case ACTION_SEND_MESSAGE:
+        const messages = this._state.dialogsData.dialogs[action.contactId].messages;
+        const newChainNeeded = (
+          messages.length === 0 || messages[messages.length - 1].isIncoming
+        );
+        if (newChainNeeded) {
+          this._state.dialogsData.dialogs[action.contactId].messages.push({
+            chain: [action.newMessageText], isIncoming: false
+          });
+        } else {
+          this._state.dialogsData.dialogs[action.contactId].messages[messages.length - 1].chain.push(
+            action.newMessageText
+          );
+        }
+        this._state.dialogsData.dialogs[action.contactId].newMessageText = '';
+        this._callSubscriber(this);
+        break;
       case ACTION_UPDATE_NEW_MESSAGE_TEXT:
         const dialog = this._state.dialogsData.dialogs[action.contactId];
         if (!dialog) { break; }
@@ -70,6 +88,10 @@ export const addPostActionCreator = () => ({
 
 export const initDialogActionCreator = (contactId) => ({
   type: ACTION_INIT_DIALOG, contactId
+});
+
+export const sendMessageActionCreator = (contactId, newMessageText) => ({
+  type: ACTION_SEND_MESSAGE, contactId, newMessageText
 });
 
 export const updateNewMessageTextActionCreator = (contactId, newMessageText) => ({
