@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import style        from './Dialogs.module.css';
 import Contact      from './Contact/Contact';
 import MessageChain from './MessageChain/MessageChain';
-import { sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../../redux/state';
+import { sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../../redux/dialogs-reducer';
 
 const Dialogs = (props) => {
   // ---------------------------------------------------

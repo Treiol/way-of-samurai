@@ -1,6 +1,6 @@
 import style from './Contact.module.css';
 import { NavLink } from 'react-router-dom';
-import { initDialogActionCreator } from '../../../../redux/state';
+import { initDialogActionCreator } from '../../../../redux/dialogs-reducer';
 
 const Contact = (props) => {
   // ---------------------------------------------------

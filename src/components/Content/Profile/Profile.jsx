@@ -1,6 +1,6 @@
 import style from './Profile.module.css';
 import Post  from './Post/Post';
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/state';
+import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profile-reducer';
 
 const Profile = (props) => {
   // ---------------------------------------------------
