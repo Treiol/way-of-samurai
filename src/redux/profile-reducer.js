@@ -1,7 +1,12 @@
 const ACTION_ADD_POST             = 'ACTION_ADD_POST';
 const ACTION_UPDATE_NEW_POST_TEXT = 'ACTION_UPDATE_NEW_POST_TEXT';
 
-const profileReducer = (state, action) => {
+const initialState = {
+  newPostText: '',
+  posts:       []
+};
+
+const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_ADD_POST:
       state.posts.unshift({
