@@ -23,17 +23,18 @@ const dialogsReducer = (state = initialState, action) => {
       };
       return state;
     case ACTION_SEND_MESSAGE:
-      const messages = state.dialogs[action.contactId].messages;
+      const messages    = state.dialogs[action.contactId].messages;
+      const messageText = state.dialogs[action.contactId].newMessageText;
       const newChainNeeded = (
         messages.length === 0 || messages[messages.length - 1].isIncoming
       );
       if (newChainNeeded) {
         state.dialogs[action.contactId].messages.push({
-          chain: [action.newMessageText], isIncoming: false
+          chain: [messageText], isIncoming: false
         });
       } else {
         state.dialogs[action.contactId].messages[messages.length - 1].chain.push(
-          action.newMessageText
+          messageText
         );
       }
       state.dialogs[action.contactId].newMessageText = '';
@@ -51,8 +52,8 @@ export const initDialogActionCreator = (contactId) => ({
   type: ACTION_INIT_DIALOG, contactId
 });
 
-export const sendMessageActionCreator = (contactId, newMessageText) => ({
-  type: ACTION_SEND_MESSAGE, contactId, newMessageText
+export const sendMessageActionCreator = (contactId) => ({
+  type: ACTION_SEND_MESSAGE, contactId
 });
 
 export const updateNewMessageTextActionCreator = (contactId, newMessageText) => ({

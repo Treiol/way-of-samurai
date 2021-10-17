@@ -3,8 +3,8 @@ import { Route } from 'react-router-dom';
 import Header  from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import Feed    from './components/Content/Feed/Feed';
-import Profile from './components/Content/Profile/Profile';
-import Dialogs from './components/Content/Dialogs/Dialogs';
+import ProfileContainer from './components/Content/Profile/ProfileContainer';
+import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 
 const App = (props) => {
   return (
@@ -14,10 +14,10 @@ const App = (props) => {
         <Sidebar />
         <Route path="/." exact><Feed /></Route>
         <Route path="/profile" exact>
-          <Profile data={props.state.profileData} onDispatch={props.onDispatch} />
+          <ProfileContainer data={props.state.profileData} onDispatch={props.onDispatch} />
         </Route>
-        <Route path="/dialogs/:currentContactId?" exact>
-          <Dialogs data={props.state.dialogsData} onDispatch={props.onDispatch} />
+        <Route path="/dialogs/:contactId?" exact>
+          <DialogsContainer data={props.state.dialogsData} onDispatch={props.onDispatch} />
         </Route>
       </div>
     </div>
