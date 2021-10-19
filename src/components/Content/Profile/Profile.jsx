@@ -2,6 +2,15 @@ import style from './Profile.module.css';
 import Post  from './Post/Post';
 
 const Profile = (props) => {
+  // ---------------------------------------------------
+  const addPostClick = (postText) => {
+    if (postText.trim() === '') {
+      alert('Текст записи не может быть пустым!');
+      return;
+    }
+    props.onAddPostClick();
+  };
+  // ---------------------------------------------------
   const posts = props.posts.map(
     (post) => <Post key={`post${post.id}`} message={post.message} likesCount={post.likesCount} />
   );
@@ -15,7 +24,10 @@ const Profile = (props) => {
             value={props.newPostText}
             onChange={(event) => { props.onPostTextChange(event.target.value); }}
           />
-          <input type="button" value="Добавить" onClick={props.onAddPostClick} />
+          <input
+            type="button" value="Добавить"
+            onClick={() => { addPostClick(props.newPostText); }}
+          />
         </div>
         <div className={style.postList}>{posts}</div>
       </div>

@@ -14,37 +14,40 @@ const initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
+  const newState = { ...state };
   switch (action.type) {
     case ACTION_INIT_DIALOG:
       if (state.dialogs[action.contactId]) { return state; }
-      state.dialogs[action.contactId] = {
+      newState.dialogs[action.contactId] = {
         messages:       [],
         newMessageText: ''
       };
-      return state;
+      return newState;
     case ACTION_SEND_MESSAGE:
-      const messages    = state.dialogs[action.contactId].messages;
-      const messageText = state.dialogs[action.contactId].newMessageText;
+      const messages    = newState.dialogs[action.contactId].messages;
+      const messageText = newState.dialogs[action.contactId].newMessageText;
       const newChainNeeded = (
         messages.length === 0 || messages[messages.length - 1].isIncoming
       );
       if (newChainNeeded) {
-        state.dialogs[action.contactId].messages.push({
-          chain: [messageText], isIncoming: false
-        });
+        newState.dialogs[action.contactId].messages = [
+          ...messages, { chain: [messageText], isIncoming: false }
+        ];
       } else {
-        state.dialogs[action.contactId].messages[messages.length - 1].chain.push(
-          messageText
-        );
+        newState.dialogs[action.contactId].messages[messages.length - 1].chain = [
+          ...messages[messages.length - 1].chain, messageText
+        ];
       }
-      state.dialogs[action.contactId].newMessageText = '';
-      return state;
+      newState.dialogs[action.contactId].newMessageText = '';
+      return newState;
     case ACTION_UPDATE_NEW_MESSAGE_TEXT:
       if (!state.dialogs[action.contactId]) { return state; }
-      state.dialogs[action.contactId].newMessageText = action.newMessageText;
-      return state;
+      newState.dialogs = { ...state.dialogs };
+      newState.dialogs[action.contactId] = { ...state.dialogs[action.contactId] };
+      newState.dialogs[action.contactId].newMessageText = action.newMessageText;
+      return newState;
     default:
-      return state;
+      return newState;
   }
 };
 

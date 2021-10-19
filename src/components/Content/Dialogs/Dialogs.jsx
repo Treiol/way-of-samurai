@@ -1,28 +1,42 @@
+import { useParams } from 'react-router-dom';
 import style        from './Dialogs.module.css';
 import Contact      from './Contact/Contact';
 import MessageChain from './MessageChain/MessageChain';
 
 const Dialogs = (props) => {
+  // ---------------------------------------------------
+  const sendMessageClick = (contactId, messageText) => {
+    if (messageText.trim() === '') {
+      alert('Текст сообщения не может быть пустым!');
+      return;
+    }
+    props.onSendMessageClick(contactId);
+  };
+  // ---------------------------------------------------
+  const { contactId } = useParams();
   const contacts = props.contacts.map(
-    (contact) => (contact.id === parseInt(props.contactId))
+    (contact) => (contact.id === parseInt(contactId))
       ? <Contact
           id={contact.id} key={`contact${contact.id}`} name={contact.name}
-          onClick={() => { props.onContactClick(contact.id); }} selected
+          onClick={() => { props.onContactClick(contactId, contact.id); }} selected
         />
       : <Contact
           id={contact.id} key={`contact${contact.id}`} name={contact.name}
-          onClick={() => { props.onContactClick(contact.id); }}
+          onClick={() => { props.onContactClick(contactId, contact.id); }}
         />
   );
   const messageChains = [];
-  for (let i = 0; i < props.messages.length; i++) {
-    const message = props.messages[i];
-    messageChains.push(
-      (message.isIncoming)
-        ? <MessageChain key={`messageChain${i + 1}`} items={message.chain} incoming />
-        : <MessageChain key={`messageChain${i + 1}`} items={message.chain} />
-    );
+  if (props.dialogs[contactId]) {
+    for (let i = 0; i < props.dialogs[contactId].messages.length; i++) {
+      const message = props.dialogs[contactId].messages[i];
+      messageChains.push(
+        (message.isIncoming)
+          ? <MessageChain key={`messageChain${i + 1}`} items={message.chain} incoming />
+          : <MessageChain key={`messageChain${i + 1}`} items={message.chain} />
+      );
+    }
   }
+  const newMessageText = (props.dialogs[contactId]) ? props.dialogs[contactId].newMessageText : '';
   return (
     <div className={`content ${style.content} ${style.dialogs}`}>
       <div className={style.contactList}>{contacts}</div>
@@ -31,10 +45,13 @@ const Dialogs = (props) => {
         <div className={style.messageForm}>
           <h1>Ваше сообщение</h1>
           <textarea
-            value={props.newMessageText}
-            onChange={(event) => { props.onMessageTextChange(event.target.value); }}
+            value={newMessageText}
+            onChange={(event) => { props.onMessageTextChange(contactId, event.target.value); }}
           />
-          <input type="button" value="Отправить" onClick={props.onSendMessageClick} />
+          <input
+            type="button" value="Отправить"
+            onClick={() => { sendMessageClick(contactId, newMessageText); }}
+          />
         </div>
       </div>
     </div>

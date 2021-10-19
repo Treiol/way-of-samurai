@@ -6,19 +6,15 @@ import Feed    from './components/Content/Feed/Feed';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 
-const App = (props) => {
+const App = () => {
   return (
     <div className="App">
       <Header />
       <div className="content-container">
         <Sidebar />
         <Route path="/." exact><Feed /></Route>
-        <Route path="/profile" exact>
-          <ProfileContainer data={props.state.profileData} onDispatch={props.onDispatch} />
-        </Route>
-        <Route path="/dialogs/:contactId?" exact>
-          <DialogsContainer data={props.state.dialogsData} onDispatch={props.onDispatch} />
-        </Route>
+        <Route path="/profile" exact><ProfileContainer /></Route>
+        <Route path="/dialogs/:contactId?" exact><DialogsContainer /></Route>
       </div>
     </div>
   );
