@@ -24,11 +24,12 @@ const dialogsReducer = (state = initialState, action) => {
       };
       return newState;
     case ACTION_SEND_MESSAGE:
-      const messages    = newState.dialogs[action.contactId].messages;
-      const messageText = newState.dialogs[action.contactId].newMessageText;
+      const messages    = state.dialogs[action.contactId].messages;
+      const messageText = state.dialogs[action.contactId].newMessageText;
       const newChainNeeded = (
         messages.length === 0 || messages[messages.length - 1].isIncoming
       );
+      newState.dialogs = { ...state.dialogs };
       if (newChainNeeded) {
         newState.dialogs[action.contactId].messages = [
           ...messages, { chain: [messageText], isIncoming: false }
@@ -43,7 +44,6 @@ const dialogsReducer = (state = initialState, action) => {
     case ACTION_UPDATE_NEW_MESSAGE_TEXT:
       if (!state.dialogs[action.contactId]) { return state; }
       newState.dialogs = { ...state.dialogs };
-      newState.dialogs[action.contactId] = { ...state.dialogs[action.contactId] };
       newState.dialogs[action.contactId].newMessageText = action.newMessageText;
       return newState;
     default:
