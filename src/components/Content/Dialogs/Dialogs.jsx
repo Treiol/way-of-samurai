@@ -24,15 +24,12 @@ const Dialogs = (props) => {
   // ---------------------------------------------------
   const { contactId } = useParams();
   const contacts = props.contacts.map(
-    (contact) => (contact.id === parseInt(contactId))
-      ? <Contact
-          id={contact.id} key={`contact${contact.id}`} name={contact.name} selected
-          onClick={props.onContactClick}
-        />
-      : <Contact
-          id={contact.id} key={`contact${contact.id}`} name={contact.name}
-          onClick={props.onContactClick}
-        />
+    (contact) => 
+      <Contact
+        id={contact.id} key={`contact${contact.id}`} name={contact.name}
+        selected={contact.id === parseInt(contactId)}
+        onClick={props.onContactClick}
+      />
   );
   const messageChains = [];
   if (props.dialogs[contactId]) {

@@ -9,6 +9,8 @@ const Sidebar = () => {
       </div><div className={style.item}>
         <NavLink activeClassName={style.activeLink} to="/dialogs">Сообщения</NavLink>
       </div><div className={style.item}>
+        <NavLink activeClassName={style.activeLink} to="/users">Пользователи</NavLink>
+      </div><div className={style.item}>
         <NavLink activeClassName={style.activeLink} to="/music">Музыка</NavLink>
       </div><div className={style.item}>
         <NavLink activeClassName={style.activeLink} to="/profile">Профиль</NavLink>

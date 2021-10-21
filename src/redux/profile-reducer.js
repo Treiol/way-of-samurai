@@ -1,12 +1,12 @@
 const ACTION_ADD_POST             = 'ACTION_ADD_POST';
 const ACTION_UPDATE_NEW_POST_TEXT = 'ACTION_UPDATE_NEW_POST_TEXT';
 
-const initialState = {
+const INITIAL_STATE = {
   newPostText: '',
   posts:       []
 };
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ACTION_ADD_POST: {
       const newState = { ...state };

@@ -2,7 +2,7 @@ const ACTION_INIT_DIALOG             = 'ACTION_INIT_DIALOG';
 const ACTION_SEND_MESSAGE            = 'ACTION_SEND_MESSAGE';
 const ACTION_UPDATE_NEW_MESSAGE_TEXT = 'ACTION_UPDATE_NEW_MESSAGE_TEXT';
 
-const initialState = {
+const INITIAL_STATE = {
   contacts: [
     { id: 1, name: 'Алексей' },
     { id: 2, name: 'Андрей' },
@@ -13,7 +13,7 @@ const initialState = {
   dialogs: { }
 };
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ACTION_INIT_DIALOG: {
       if (state.dialogs[action.contactId]) { return state; }

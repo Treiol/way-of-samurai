@@ -2,11 +2,11 @@ const ACTION_FOLLOW    = 'ACTION_FOLLOW';
 const ACTION_UNFOLLOW  = 'ACTION_UNFOLLOW';
 const ACTION_SET_USERS = 'ACTION_SET_USERS';
 
-const initialState = {
+const INITIAL_STATE = {
   users: []
 };
 
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ACTION_FOLLOW: {
       const newState = { ...state };
@@ -18,6 +18,7 @@ const usersReducer = (state = initialState, action) => {
     }
     case ACTION_SET_USERS: {
       const newState = { ...state };
+      newState.users = action.users;
       return newState;
     }
     default: return state;
