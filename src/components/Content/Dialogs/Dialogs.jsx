@@ -5,7 +5,16 @@ import MessageChain from './MessageChain/MessageChain';
 
 const Dialogs = (props) => {
   // ---------------------------------------------------
+  const messageTextChange = (contactId, value) => {
+    if (!contactId) { return; }
+    props.onMessageTextChange(contactId, value);
+  };
+  // ---------------------------------------------------
   const sendMessageClick = (contactId, messageText) => {
+    if (!contactId) {
+      alert('Сначала выберите, кому вы хотите написать!');
+      return;
+    }
     if (messageText.trim() === '') {
       alert('Текст сообщения не может быть пустым!');
       return;
@@ -17,12 +26,12 @@ const Dialogs = (props) => {
   const contacts = props.contacts.map(
     (contact) => (contact.id === parseInt(contactId))
       ? <Contact
-          id={contact.id} key={`contact${contact.id}`} name={contact.name}
-          onClick={() => { props.onContactClick(contactId, contact.id); }} selected
+          id={contact.id} key={`contact${contact.id}`} name={contact.name} selected
+          onClick={props.onContactClick}
         />
       : <Contact
           id={contact.id} key={`contact${contact.id}`} name={contact.name}
-          onClick={() => { props.onContactClick(contactId, contact.id); }}
+          onClick={props.onContactClick}
         />
   );
   const messageChains = [];
@@ -46,7 +55,7 @@ const Dialogs = (props) => {
           <h1>Ваше сообщение</h1>
           <textarea
             value={newMessageText}
-            onChange={(event) => { props.onMessageTextChange(contactId, event.target.value); }}
+            onChange={(event) => { messageTextChange(contactId, event.target.value); }}
           />
           <input
             type="button" value="Отправить"

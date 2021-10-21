@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
-import {
-  initDialogActionCreator, sendMessageActionCreator, updateNewMessageTextActionCreator
-} from '../../../redux/dialogs-reducer';
+import { acInitDialog, acSendMessage, acUpdateNewMessageText } from '../../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
 
 const mapStateToProps = (state) => {
@@ -13,17 +11,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onContactClick: (contactId, destContactId) => {
-      if (contactId === destContactId) { return; }
-      dispatch(initDialogActionCreator(destContactId));
+    onContactClick: (contactId) => {
+      dispatch(acInitDialog(contactId));
     },
     onMessageTextChange: (contactId, value) => {
-      if (!contactId) { return; }
-      dispatch(updateNewMessageTextActionCreator(contactId, value));
+      dispatch(acUpdateNewMessageText(contactId, value));
     },
     onSendMessageClick: (contactId) => {
-      if (!contactId) { return; }
-      dispatch(sendMessageActionCreator(contactId));
+      dispatch(acSendMessage(contactId));
     }
   };
 };

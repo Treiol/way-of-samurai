@@ -7,9 +7,9 @@ const initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
-  const newState = { ...state };
   switch (action.type) {
-    case ACTION_ADD_POST:
+    case ACTION_ADD_POST: {
+      const newState = { ...state };
       newState.posts = [{
         id:         state.posts.length + 1,
         message:    state.newPostText,
@@ -17,19 +17,21 @@ const profileReducer = (state = initialState, action) => {
       }, ...state.posts];
       newState.newPostText = '';
       return newState;
-    case ACTION_UPDATE_NEW_POST_TEXT:
+    }
+    case ACTION_UPDATE_NEW_POST_TEXT: {
+      const newState = { ...state };
       newState.newPostText = action.newPostText;
       return newState;
-    default:
-      return newState;
+    }
+    default: return state;
   }
 };
 
-export const addPostActionCreator = () => ({
+export const acAddPost = () => ({
   type: ACTION_ADD_POST
 });
 
-export const updateNewPostTextActionCreator = (newPostText) => ({
+export const acUpdateNewPostText = (newPostText) => ({
   type: ACTION_UPDATE_NEW_POST_TEXT, newPostText
 });
 

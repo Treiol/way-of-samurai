@@ -14,21 +14,23 @@ const initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
-  const newState = { ...state };
   switch (action.type) {
-    case ACTION_INIT_DIALOG:
-      if (newState.dialogs[action.contactId]) { return newState; }
+    case ACTION_INIT_DIALOG: {
+      if (state.dialogs[action.contactId]) { return state; }
+      const newState = { ...state };
       newState.dialogs = {
         ...state.dialogs,
         [action.contactId]: { messages: [], newMessageText: '' }
       };
       return newState;
-    case ACTION_SEND_MESSAGE:
-      const messages    = newState.dialogs[action.contactId].messages;
-      const messageText = newState.dialogs[action.contactId].newMessageText;
+    }
+    case ACTION_SEND_MESSAGE: {
+      const messages    = state.dialogs[action.contactId].messages;
+      const messageText = state.dialogs[action.contactId].newMessageText;
       const newChainNeeded = (
         messages.length === 0 || messages[messages.length - 1].isIncoming
       );
+      const newState   = { ...state };
       newState.dialogs = { ...state.dialogs };
       if (newChainNeeded) {
         newState.dialogs[action.contactId].messages.push({
@@ -41,25 +43,27 @@ const dialogsReducer = (state = initialState, action) => {
       }
       newState.dialogs[action.contactId].newMessageText = '';
       return newState;
-    case ACTION_UPDATE_NEW_MESSAGE_TEXT:
-      if (!newState.dialogs[action.contactId]) { return newState; }
+    }
+    case ACTION_UPDATE_NEW_MESSAGE_TEXT: {
+      if (!state.dialogs[action.contactId]) { return state; }
+      const newState   = { ...state };
       newState.dialogs = { ...state.dialogs };
       newState.dialogs[action.contactId].newMessageText = action.newMessageText;
       return newState;
-    default:
-      return newState;
+    }
+    default: return state;
   }
 };
 
-export const initDialogActionCreator = (contactId) => ({
+export const acInitDialog = (contactId) => ({
   type: ACTION_INIT_DIALOG, contactId
 });
 
-export const sendMessageActionCreator = (contactId) => ({
+export const acSendMessage = (contactId) => ({
   type: ACTION_SEND_MESSAGE, contactId
 });
 
-export const updateNewMessageTextActionCreator = (contactId, newMessageText) => ({
+export const acUpdateNewMessageText = (contactId, newMessageText) => ({
   type: ACTION_UPDATE_NEW_MESSAGE_TEXT, contactId, newMessageText
 });
 

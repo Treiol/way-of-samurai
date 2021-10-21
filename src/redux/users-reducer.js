@@ -1,0 +1,39 @@
+const ACTION_FOLLOW    = 'ACTION_FOLLOW';
+const ACTION_UNFOLLOW  = 'ACTION_UNFOLLOW';
+const ACTION_SET_USERS = 'ACTION_SET_USERS';
+
+const initialState = {
+  users: []
+};
+
+const usersReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ACTION_FOLLOW: {
+      const newState = { ...state };
+      return newState;
+    }
+    case ACTION_UNFOLLOW: {
+      const newState = { ...state };
+      return newState;
+    }
+    case ACTION_SET_USERS: {
+      const newState = { ...state };
+      return newState;
+    }
+    default: return state;
+  }
+};
+
+export const acFollow = (userId) => ({
+  type: ACTION_FOLLOW, userId
+});
+
+export const acUnfollow = (userId) => ({
+  type: ACTION_UNFOLLOW, userId
+});
+
+export const acSetUsers = (users) => ({
+  type: ACTION_SET_USERS, users
+});
+
+export default usersReducer;
