@@ -1,0 +1,60 @@
+.user {
+  display: inherit;
+  margin:  0 0 10px 0;
+}
+
+.user:last-child {
+  margin: 0;
+}
+
+.user > .userAvatar {
+  background:    #00000080;
+  border-radius: 28px;
+  color:         #FFFFFF;
+  display:       inherit;
+  font-size:     14px;
+  height:        56px;
+  margin:        0 10px 0 0;
+  max-width:     56px;
+  min-width:     56px;
+  width:         56px;
+}
+
+.user > .userAvatar > span {
+  height: fit-content;
+  margin: auto;
+}
+
+.user > .userName {
+  display:        inherit;
+  flex-direction: column;
+}
+
+.user > .userName > span {
+  background:    #3C6CCC80;
+  border-radius: 8px;
+  color:         #FFFFFF;
+  margin:        auto 0;
+  padding:       3px 7px;
+  width:         fit-content;
+}
+
+.user > .userName > .follow {
+  background:    #22B822;
+  border:        none;
+  border-radius: 6px;
+  color:         #FFFFFFE6;
+  cursor:        pointer;
+  padding:       4px 6px;
+  width:         fit-content;
+}
+
+.user > .userName > .unfollow {
+  background:    #FF7F50;
+  border:        none;
+  border-radius: 6px;
+  color:         #FFFFFFE6;
+  cursor:        pointer;
+  padding:       4px 6px;
+  width:         fit-content;
+}

@@ -10,10 +10,22 @@ const usersReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ACTION_FOLLOW: {
       const newState = { ...state };
+      newState.users = state.users.map(
+        (user) => {
+          if (user.id === action.userId) { user.followed = true; }
+          return user;
+        }
+      );
       return newState;
     }
     case ACTION_UNFOLLOW: {
       const newState = { ...state };
+      newState.users = state.users.map(
+        (user) => {
+          if (user.id === action.userId) { user.followed = false; }
+          return user;
+        }
+      );
       return newState;
     }
     case ACTION_SET_USERS: {

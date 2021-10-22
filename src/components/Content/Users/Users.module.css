@@ -1,0 +1,6 @@
+.content.users {
+  display:        inherit;
+  flex-direction: column;
+  margin:         10px;
+  overflow-y:     auto;
+}

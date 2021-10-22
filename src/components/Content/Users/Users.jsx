@@ -1,10 +1,12 @@
 import React from 'react';
 import Axios from 'axios';
+import style from './Users.module.css';
 import User  from './User/User';
 
 class Users extends React.Component {
   // ---------------------------------------------------
   componentDidMount() {
+    if (this.props.users.length > 0) { return; }
     Axios.get('https://social-network.samuraijs.com/api/1.0/users').then(
       (response) => {
         if (response.status >= 400) {
@@ -26,7 +28,7 @@ class Users extends React.Component {
         />
     );
     return (
-      <div>{users}</div>
+      <div className={`${style.content} ${style.users}`}>{users}</div>
     );
   }
   // ---------------------------------------------------
