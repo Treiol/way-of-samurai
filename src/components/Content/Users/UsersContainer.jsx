@@ -1,9 +1,12 @@
 import { connect } from 'react-redux';
-import { acFollow, acUnfollow, acSetUsers } from '../../../redux/users-reducer';
+import {
+  acFollow, acUnfollow, acSetFetchedUsers, acSetPageParams
+} from '../../../redux/users-reducer';
 import Users from './Users';
 
 const mapStateToProps = (state) => ({
-  users: state.usersData.users
+  fetchedUsers: state.usersData.fetchedUsers,
+  pageParams:   state.usersData.pageParams
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -13,8 +16,11 @@ const mapDispatchToProps = (dispatch) => ({
   onUnfollowClick: (userId) => {
     dispatch(acUnfollow(userId));
   },
-  onSetUsers: (users) => {
-    dispatch(acSetUsers(users));
+  onSetFetchedUsers: (fetchedUsers) => {
+    dispatch(acSetFetchedUsers(fetchedUsers));
+  },
+  onSetPageParams: (pageParams) => {
+    dispatch(acSetPageParams(pageParams));
   }
 });
 
