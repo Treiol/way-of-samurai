@@ -5,8 +5,10 @@ const PageControl = (props) => {
   // ---------------------------------------------------
   const pageClick = (pageNumber) => {
     if (pageNumber === props.currentPage) { return; }
+    props.onSetUsersFetching(true);
     Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${props.pageSize}&page=${pageNumber}`).then(
       (response) => {
+        props.onSetUsersFetching(false);
         if (response.status >= 400) {
           console.error(`Failed to get users:\n${response.status} ${response.statusText}`);
           return;

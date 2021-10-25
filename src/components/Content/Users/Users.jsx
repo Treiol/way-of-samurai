@@ -9,8 +9,10 @@ class Users extends React.Component {
   componentDidMount() {
     const currentPage = this.props.pageParams.currentPage;
     const pageSize    = this.props.pageParams.pageSize;
+    this.props.onSetUsersFetching(true);
     Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${pageSize}&page=${currentPage}`).then(
       (response) => {
+        this.props.onSetUsersFetching(false);
         if (response.status >= 400) {
           console.error(`Failed to get users:\n${response.status} ${response.statusText}`);
           return;
@@ -22,6 +24,9 @@ class Users extends React.Component {
   }
   // ---------------------------------------------------
   render() {
+    if (this.props.isFetching) {
+      return (<div className={style.isFetching}><span>Запрос пользователей...</span></div>);
+    }
     const users = this.props.fetchedUsers.map(
       (user) =>
         <User
@@ -35,8 +40,10 @@ class Users extends React.Component {
         <div className={style.userList}>{users}</div>
         <PageControl
           currentPage={this.props.pageParams.currentPage}
-          pageSize={this.props.pageSize} pagesCount={this.props.pageParams.pagesCount}
-          onSetFetchedUsers={this.props.onSetFetchedUsers} onSetPageParams={this.props.onSetPageParams}
+          pageSize={this.props.pageParams.pageSize} pagesCount={this.props.pageParams.pagesCount}
+          onSetFetchedUsers={this.props.onSetFetchedUsers}
+          onSetPageParams={this.props.onSetPageParams}
+          onSetUsersFetching={this.props.onSetUsersFetching}
         />
       </div>
     );
