@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { acInitDialog, acSendMessage, acUpdateNewMessageText } from '../../../redux/dialogs-reducer';
+import { initDialog, sendMessage, updateNewMessageText } from '../../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
 
 const mapStateToProps = (state) => ({
@@ -7,18 +7,6 @@ const mapStateToProps = (state) => ({
   dialogs:  state.dialogsData.dialogs
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onContactClick: (contactId) => {
-    dispatch(acInitDialog(contactId));
-  },
-  onMessageTextChange: (contactId, value) => {
-    dispatch(acUpdateNewMessageText(contactId, value));
-  },
-  onSendMessageClick: (contactId) => {
-    dispatch(acSendMessage(contactId));
-  }
-});
+const actions = { initDialog, sendMessage, updateNewMessageText };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
-
-export default DialogsContainer;
+export default connect(mapStateToProps, actions)(Dialogs);

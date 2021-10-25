@@ -9,16 +9,16 @@ class Users extends React.Component {
   componentDidMount() {
     const currentPage = this.props.pageParams.currentPage;
     const pageSize    = this.props.pageParams.pageSize;
-    this.props.onSetUsersFetching(true);
+    this.props.setIsFetching(true);
     Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${pageSize}&page=${currentPage}`).then(
       (response) => {
-        this.props.onSetUsersFetching(false);
+        this.props.setIsFetching(false);
         if (response.status >= 400) {
           console.error(`Failed to get users:\n${response.status} ${response.statusText}`);
           return;
         }
-        this.props.onSetFetchedUsers(response.data.items);
-        this.props.onSetPageParams({ pagesCount: Math.ceil(response.data.totalCount / pageSize) });
+        this.props.setFetchedUsers(response.data.items);
+        this.props.setPageParams({ pagesCount: Math.ceil(response.data.totalCount / pageSize) });
       }
     );
   }
@@ -32,7 +32,7 @@ class Users extends React.Component {
         <User
           id={user.id} key={`user${user.id}`} name={user.name} photos={user.photos}
           status={user.status} url={user.uniqueUrlName} followed={user.followed}
-          onFollowClick={this.props.onFollowClick} onUnfollowClick={this.props.onUnfollowClick}
+          onFollowClick={this.props.follow} onUnfollowClick={this.props.unfollow}
         />
     );
     return (
@@ -41,9 +41,8 @@ class Users extends React.Component {
         <PageControl
           currentPage={this.props.pageParams.currentPage}
           pageSize={this.props.pageParams.pageSize} pagesCount={this.props.pageParams.pagesCount}
-          onSetFetchedUsers={this.props.onSetFetchedUsers}
-          onSetPageParams={this.props.onSetPageParams}
-          onSetUsersFetching={this.props.onSetUsersFetching}
+          onSetFetchedUsers={this.props.setFetchedUsers} onSetIsFetching={this.props.setIsFetching}
+          onSetPageParams={this.props.setPageParams}
         />
       </div>
     );

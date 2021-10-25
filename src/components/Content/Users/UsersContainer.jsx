@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  acFollow, acUnfollow, acSetFetchedUsers, acSetPageParams, acSetUsersFetching
+  follow, unfollow, setFetchedUsers, setIsFetching, setPageParams
 } from '../../../redux/users-reducer';
 import Users from './Users';
 
@@ -10,24 +10,6 @@ const mapStateToProps = (state) => ({
   pageParams:   state.usersData.pageParams
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onFollowClick: (userId) => {
-    dispatch(acFollow(userId));
-  },
-  onUnfollowClick: (userId) => {
-    dispatch(acUnfollow(userId));
-  },
-  onSetFetchedUsers: (fetchedUsers) => {
-    dispatch(acSetFetchedUsers(fetchedUsers));
-  },
-  onSetPageParams: (pageParams) => {
-    dispatch(acSetPageParams(pageParams));
-  },
-  onSetUsersFetching: (isFetching) => {
-    dispatch(acSetUsersFetching(isFetching));
-  }
-});
+const actions = { follow, unfollow, setFetchedUsers, setIsFetching, setPageParams };
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
-
-export default UsersContainer;
+export default connect(mapStateToProps, actions)(Users);

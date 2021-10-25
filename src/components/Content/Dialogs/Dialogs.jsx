@@ -7,7 +7,7 @@ const Dialogs = (props) => {
   // ---------------------------------------------------
   const messageTextChange = (contactId, value) => {
     if (!contactId) { return; }
-    props.onMessageTextChange(contactId, value);
+    props.updateNewMessageText(contactId, value);
   };
   // ---------------------------------------------------
   const sendMessageClick = (contactId, messageText) => {
@@ -16,10 +16,10 @@ const Dialogs = (props) => {
       return;
     }
     if (messageText.trim() === '') {
-      alert('Текст сообщения не может быть пустым!');
+      alert('Введите ваше сообщение!');
       return;
     }
-    props.onSendMessageClick(contactId);
+    props.sendMessage(contactId);
   };
   // ---------------------------------------------------
   const { contactId } = useParams();
@@ -27,8 +27,7 @@ const Dialogs = (props) => {
     (contact) => 
       <Contact
         id={contact.id} key={`contact${contact.id}`} name={contact.name}
-        selected={contact.id === parseInt(contactId)}
-        onClick={props.onContactClick}
+        selected={contact.id === parseInt(contactId)} onClick={props.initDialog}
       />
   );
   const messageChains = [];
@@ -36,9 +35,9 @@ const Dialogs = (props) => {
     for (let i = 0; i < props.dialogs[contactId].messages.length; i++) {
       const message = props.dialogs[contactId].messages[i];
       messageChains.push(
-        (message.isIncoming)
-          ? <MessageChain key={`messageChain${i + 1}`} items={message.chain} incoming />
-          : <MessageChain key={`messageChain${i + 1}`} items={message.chain} />
+        <MessageChain
+          key={`messageChain${i + 1}`} items={message.chain} incoming={message.isIncoming}
+        />
       );
     }
   }

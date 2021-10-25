@@ -1,5 +1,5 @@
-const ACTION_ADD_POST             = 'ACTION_ADD_POST';
-const ACTION_UPDATE_NEW_POST_TEXT = 'ACTION_UPDATE_NEW_POST_TEXT';
+const ADD_POST             = 'ADD_POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 
 const INITIAL_STATE = {
   newPostText: '',
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 
 const profileReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ACTION_ADD_POST: {
+    case ADD_POST: {
       const newState = { ...state };
       newState.posts = [{
         id:         state.posts.length + 1,
@@ -18,7 +18,7 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       newState.newPostText = '';
       return newState;
     }
-    case ACTION_UPDATE_NEW_POST_TEXT: {
+    case UPDATE_NEW_POST_TEXT: {
       const newState = { ...state };
       newState.newPostText = action.newPostText;
       return newState;
@@ -27,12 +27,12 @@ const profileReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export const acAddPost = () => ({
-  type: ACTION_ADD_POST
+export const addPost = () => ({
+  type: ADD_POST
 });
 
-export const acUpdateNewPostText = (newPostText) => ({
-  type: ACTION_UPDATE_NEW_POST_TEXT, newPostText
+export const updateNewPostText = (newPostText) => ({
+  type: UPDATE_NEW_POST_TEXT, newPostText
 });
 
 export default profileReducer;

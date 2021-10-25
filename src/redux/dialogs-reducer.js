@@ -1,6 +1,6 @@
-const ACTION_INIT_DIALOG             = 'ACTION_INIT_DIALOG';
-const ACTION_SEND_MESSAGE            = 'ACTION_SEND_MESSAGE';
-const ACTION_UPDATE_NEW_MESSAGE_TEXT = 'ACTION_UPDATE_NEW_MESSAGE_TEXT';
+const INIT_DIALOG             = 'INIT_DIALOG';
+const SEND_MESSAGE            = 'SEND_MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 
 const INITIAL_STATE = {
   contacts: [
@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 
 const dialogsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ACTION_INIT_DIALOG: {
+    case INIT_DIALOG: {
       if (state.dialogs[action.contactId]) { return state; }
       const newState = { ...state };
       newState.dialogs = {
@@ -24,7 +24,7 @@ const dialogsReducer = (state = INITIAL_STATE, action) => {
       };
       return newState;
     }
-    case ACTION_SEND_MESSAGE: {
+    case SEND_MESSAGE: {
       const messages    = state.dialogs[action.contactId].messages;
       const messageText = state.dialogs[action.contactId].newMessageText;
       const newChainNeeded = (
@@ -44,7 +44,7 @@ const dialogsReducer = (state = INITIAL_STATE, action) => {
       newState.dialogs[action.contactId].newMessageText = '';
       return newState;
     }
-    case ACTION_UPDATE_NEW_MESSAGE_TEXT: {
+    case UPDATE_NEW_MESSAGE_TEXT: {
       if (!state.dialogs[action.contactId]) { return state; }
       const newState   = { ...state };
       newState.dialogs = { ...state.dialogs };
@@ -55,16 +55,16 @@ const dialogsReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export const acInitDialog = (contactId) => ({
-  type: ACTION_INIT_DIALOG, contactId
+export const initDialog = (contactId) => ({
+  type: INIT_DIALOG, contactId
 });
 
-export const acSendMessage = (contactId) => ({
-  type: ACTION_SEND_MESSAGE, contactId
+export const sendMessage = (contactId) => ({
+  type: SEND_MESSAGE, contactId
 });
 
-export const acUpdateNewMessageText = (contactId, newMessageText) => ({
-  type: ACTION_UPDATE_NEW_MESSAGE_TEXT, contactId, newMessageText
+export const updateNewMessageText = (contactId, newMessageText) => ({
+  type: UPDATE_NEW_MESSAGE_TEXT, contactId, newMessageText
 });
 
 export default dialogsReducer;

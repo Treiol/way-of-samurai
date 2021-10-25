@@ -5,10 +5,10 @@ const Profile = (props) => {
   // ---------------------------------------------------
   const addPostClick = (postText) => {
     if (postText.trim() === '') {
-      alert('Текст записи не может быть пустым!');
+      alert('Введите текст записи!');
       return;
     }
-    props.onAddPostClick();
+    props.addPost();
   };
   // ---------------------------------------------------
   const posts = props.posts.map(
@@ -22,7 +22,7 @@ const Profile = (props) => {
           <h1>Новая запись</h1>
           <textarea
             value={props.newPostText}
-            onChange={(event) => { props.onPostTextChange(event.target.value); }}
+            onChange={(event) => { props.updateNewPostText(event.target.value); }}
           />
           <input
             type="button" value="Добавить"
