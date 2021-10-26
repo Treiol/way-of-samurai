@@ -15,7 +15,7 @@ const App = () => {
         <Sidebar />
         <Route path="/." exact><Feed /></Route>
         <Route path="/dialogs/:contactId?" exact><DialogsContainer /></Route>
-        <Route path="/profile" exact><ProfileContainer /></Route>
+        <Route path="/profile/:userId?" exact><ProfileContainer /></Route>
         <Route path="/users" exact><UsersContainer /></Route>
       </div>
     </div>

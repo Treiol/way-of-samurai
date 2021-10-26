@@ -1,5 +1,5 @@
-import style from './Contact.module.css';
 import { NavLink } from 'react-router-dom';
+import style from './Contact.module.css';
 
 const Contact = (props) => {
   // ---------------------------------------------------

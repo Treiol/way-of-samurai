@@ -35,7 +35,12 @@ class UsersApi extends React.Component {
   // ---------------------------------------------------
   render() {
     return (
-      <Users {...this.props} fetchUsers={this._fetchUsers.bind(this)} />
+      <Users
+        fetchedUsers={this.props.fetchedUsers} isFetching={this.props.isFetching}
+        pageParams={this.props.pageParams}
+        fetchUsers={this._fetchUsers.bind(this)} follow={this.props.follow}
+        unfollow={this.props.unfollow} setPageParams={this.props.setPageParams}
+      />
     );
   }
   // ---------------------------------------------------

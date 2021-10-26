@@ -14,9 +14,11 @@ const Profile = (props) => {
   const posts = props.posts.map(
     (post) => <Post key={`post${post.id}`} message={post.message} likesCount={post.likesCount} />
   );
+  let userInfo = <span>user info</span>;
+//if (Object.keys(props.userInfo).length > 0) { console.log(props.userInfo); }
   return (
     <div className={`content ${style.content} ${style.profile}`}>
-      <div className={style.userInfo}><span>user info</span></div>
+      <div className={style.userInfo}>{userInfo}</div>
       <div className={style.userPosts}>
         <div className={style.postForm}>
           <h1>Новая запись</h1>

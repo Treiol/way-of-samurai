@@ -30,13 +30,14 @@
   flex-direction: column;
 }
 
-.user > .userName > span {
-  background:    #3C6CCC80;
-  border-radius: 8px;
-  color:         #FFFFFF;
-  margin:        auto 0;
-  padding:       3px 7px;
-  width:         fit-content;
+.user > .userName > a {
+  background:      #3C6CCC80;
+  border-radius:   8px;
+  color:           #FFFFFF;
+  margin:          auto 0;
+  padding:         3px 7px;
+  text-decoration: none;
+  width:           fit-content;
 }
 
 .user > .userName > .follow {

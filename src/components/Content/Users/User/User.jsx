@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import style from './User.module.css';
 
 const User = (props) => {
@@ -14,7 +15,7 @@ const User = (props) => {
     <div className={style.user}>
       <div className={style.userAvatar}><span>ava</span></div>
       <div className={style.userName}>
-        <span>{props.name}</span>
+        <NavLink to={`/profile/${props.id}`}>{props.name}</NavLink>
         {followUnfollow}
       </div>
     </div>
