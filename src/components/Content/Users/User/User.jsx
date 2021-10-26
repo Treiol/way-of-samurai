@@ -4,11 +4,11 @@ const User = (props) => {
   const followUnfollow = (!props.followed)
     ? <input
         className={style.follow} type="button" value="Добавить в друзья"
-        onClick={() => { props.onFollowClick(props.id); }}
+        onClick={() => { props.followClick(props.id); }}
       />
     : <input
         className={style.unfollow} type="button" value="Удалить из друзей"
-        onClick={() => { props.onUnfollowClick(props.id); }}
+        onClick={() => { props.unfollowClick(props.id); }}
       />;
   return (
     <div className={style.user}>
