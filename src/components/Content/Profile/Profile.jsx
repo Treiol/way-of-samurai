@@ -1,7 +1,13 @@
-import style from './Profile.module.css';
-import Post  from './Post/Post';
+import style    from './Profile.module.css';
+import Post     from './Post/Post';
+import UserInfo from './UserInfo/UserInfo';
 
 const Profile = (props) => {
+  if (props.isFetching) {
+    return (
+      <div className={style.isFetching}><span>Запрос информации о пользователе...</span></div>
+    );
+  }
   // ---------------------------------------------------
   const addPostClick = (postText) => {
     if (postText.trim() === '') {
@@ -14,11 +20,9 @@ const Profile = (props) => {
   const posts = props.posts.map(
     (post) => <Post key={`post${post.id}`} message={post.message} likesCount={post.likesCount} />
   );
-  let userInfo = <span>user info</span>;
-//if (Object.keys(props.userInfo).length > 0) { console.log(props.userInfo); }
   return (
     <div className={`content ${style.content} ${style.profile}`}>
-      <div className={style.userInfo}>{userInfo}</div>
+      <UserInfo userInfo={props.userInfo} />
       <div className={style.userPosts}>
         <div className={style.postForm}>
           <h1>Новая запись</h1>

@@ -1,0 +1,51 @@
+.userInfo {
+  background:    #3C6CCC80;
+  border-radius: 8px;
+  display:       inherit;
+  height:        230px;
+  margin:        10px;
+  max-height:    230px;
+  min-height:    230px;
+}
+
+.userInfo > span {
+  color:     #FFFFFF;
+  font-size: 22px;
+  height:    fit-content;
+  margin:    auto;
+}
+
+.userInfo > .userAvatar {
+  background:    #00000080;
+  border-radius: 99px;
+  color:         #FFFFFF;
+  display:       inherit;
+  font-size:     22px;
+  height:        198px;
+  margin:        auto 16px;
+  max-width:     198px;
+  min-width:     198px;
+  width:         198px;
+}
+
+.userInfo > .userAvatar > span {
+  height: fit-content;
+  margin: auto;
+}
+
+.userInfo > .userData {
+  color:          #FFFFFF;
+  display:        inherit;
+  flex-direction: column;
+  height:         198px;
+  margin:         auto 16px auto 0;
+}
+
+.userInfo > .userData > .fullName {
+  font-size: 22px;
+  margin:    0 0 10px 0;
+}
+
+.userInfo > .userData > .aboutMe {
+  font-size: 18px;
+}

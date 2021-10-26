@@ -32,7 +32,8 @@ class ProfileApi extends React.Component {
   render() {
     return (
       <Profile
-        newPostText={this.props.newPostText} posts={this.props.posts} userInfo={this.props.userInfo}
+        isFetching={this.props.isFetching} newPostText={this.props.newPostText}
+        posts={this.props.posts} userInfo={this.props.userInfo}
         addPost={this.props.addPost} updateNewPostText={this.props.updateNewPostText}
       />
     );

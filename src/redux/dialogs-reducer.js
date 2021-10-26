@@ -28,7 +28,7 @@ const dialogsReducer = (state = INITIAL_STATE, action) => {
       const messages    = state.dialogs[action.contactId].messages;
       const messageText = state.dialogs[action.contactId].newMessageText;
       const newChainNeeded = (
-        messages.length === 0 || messages[messages.length - 1].isIncoming
+        !messages.length || messages[messages.length - 1].isIncoming
       );
       const newState   = { ...state };
       newState.dialogs = { ...state.dialogs };

@@ -2,23 +2,6 @@
   flex-direction: column;
 }
 
-.content.profile > .userInfo {
-  background:    #3C6CCC80;
-  border-radius: 8px;
-  display:       inherit;
-  height:        230px;
-  margin:        10px;
-  max-height:    230px;
-  min-height:    230px;
-}
-
-.content.profile > .userInfo > span {
-  color:     #FFFFFF;
-  font-size: 22px;
-  height:    fit-content;
-  margin:    auto;
-}
-
 .content.profile > .userPosts {
   background:     #3C6CCC33;
   border-radius:  8px;
@@ -65,4 +48,14 @@
   height:         100%;
   margin:         0 12px 12px 12px;
   overflow-y:     auto;
+}
+
+.isFetching {
+  display: inherit;
+  width:   100%;
+}
+
+.isFetching > span {
+  margin: auto;
+  width:  fit-content;
 }
