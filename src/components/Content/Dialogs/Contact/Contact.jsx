@@ -5,11 +5,10 @@ const Contact = (props) => {
   // ---------------------------------------------------
   const contactClick = (contactId) => {
     if (props.selected) { return; }
-    props.onClick(contactId);
+    props.click(contactId);
   };
   // ---------------------------------------------------
-  const contactClassName = (props.selected)
-    ? `${style.contact} ${style.selected}` : style.contact;
+  const contactClassName = (props.selected) ? `${style.contact} ${style.selected}` : style.contact;
   return (
     <NavLink
       className={contactClassName} to={`/dialogs/${props.id}`}

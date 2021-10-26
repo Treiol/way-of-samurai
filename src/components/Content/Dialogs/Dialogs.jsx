@@ -27,7 +27,8 @@ const Dialogs = (props) => {
     (contact) => 
       <Contact
         id={contact.id} key={`contact${contact.id}`} name={contact.name}
-        selected={contact.id === parseInt(contactId)} onClick={props.initDialog}
+        selected={contact.id === parseInt(contactId)}
+        click={props.initDialog}
       />
   );
   const messageChains = [];
