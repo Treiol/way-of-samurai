@@ -48,8 +48,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
     }
     case SET_PAGE_PARAMS: {
       const newState      = { ...state };
-      newState.pageParams = { ...state.pageParams };
-      for (let p in action.pageParams) { newState.pageParams[p] = action.pageParams[p]; }
+      newState.pageParams = { ...state.pageParams, ...action.pageParams };
       return newState;
     }
     default: return state;

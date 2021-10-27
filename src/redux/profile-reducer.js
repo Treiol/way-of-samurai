@@ -14,11 +14,14 @@ const profileReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_POST: {
       const newState = { ...state };
-      newState.posts = [{
-        id:         state.posts.length + 1,
-        message:    state.newPostText,
-        likesCount: 0
-      }, ...state.posts];
+      newState.posts = [
+        {
+          id:         state.posts.length + 1,
+          message:    state.newPostText,
+          likesCount: 0
+        },
+        ...state.posts
+      ];
       newState.newPostText = '';
       return newState;
     }
