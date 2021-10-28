@@ -11,8 +11,7 @@ const Users = (props) => {
   const users = props.fetchedUsers.map(
     (user) =>
       <User
-        id={user.id} key={`user${user.id}`} name={user.name} photos={user.photos}
-        status={user.status} url={user.uniqueUrlName} followed={user.followed}
+        id={user.id} key={`user${user.id}`} name={user.name} followed={user.is_followed}
         followClick={props.follow} unfollowClick={props.unfollow}
       />
   );

@@ -10,14 +10,18 @@ class UsersApi extends React.Component {
   // ---------------------------------------------------
   _fetchUsers(currentPage, pageSize, afterSetFetchedUsers = null) {
     this.props.setIsFetching(true);
-    Axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${pageSize}&page=${currentPage}`).then(
+    Axios.get(`https://treig.ddns.net:50005/users?count=${pageSize}&page=${currentPage}`).then(
       (response) => {
         this.props.setIsFetching(false);
         if (response.status >= 400) {
           console.error(`Failed to get users:\n${response.status} ${response.statusText}`);
           return;
         }
-        this.props.setFetchedUsers(response.data.items);
+        if (response.data.status) {
+          console.error(`Failed to get users:\n${response.data.status} ${response.data.error}`);
+          return;
+        }
+        this.props.setFetchedUsers(response.data.users);
         if (afterSetFetchedUsers) { afterSetFetchedUsers(response.data); }
       }
     );
@@ -27,7 +31,7 @@ class UsersApi extends React.Component {
     this._fetchUsers(this.props.pageParams.currentPage, this.props.pageParams.pageSize,
       (responseData) => {
         this.props.setPageParams({
-          pagesCount: Math.ceil(responseData.totalCount / this.props.pageParams.pageSize)
+          pagesCount: Math.ceil(responseData.total_count / this.props.pageParams.pageSize)
         });
       }
     );
