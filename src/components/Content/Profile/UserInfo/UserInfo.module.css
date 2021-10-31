@@ -41,7 +41,7 @@
   margin:         auto 16px auto 0;
 }
 
-.userInfo > .userData > .fullName {
+.userInfo > .userData > .name {
   font-size: 22px;
   margin:    0 0 10px 0;
 }

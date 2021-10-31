@@ -8,8 +8,8 @@ const UserInfo = (props) => {
     userInfo.push(<div key="userAvatar" className={style.userAvatar}><span>ava</span></div>);
     userInfo.push(
       <div key="userData" className={style.userData}>
-        <span className={style.fullName}>{props.userInfo.fullName}</span>
-        <span className={style.aboutMe}>{props.userInfo.aboutMe}</span>
+        <span className={style.name}>{props.userInfo.name}</span>
+        <span className={style.aboutMe}>{props.userInfo.about_me}</span>
       </div>
     );
   }

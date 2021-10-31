@@ -10,16 +10,19 @@ import Profile from './Profile';
 class ProfileApi extends React.Component {
   // ---------------------------------------------------
   _fetchProfile(userId) {
-    if (!userId) { return; }
     this.props.setIsFetching(true);
-    Axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(
+    Axios.get(`https://treig.ddns.net:50005/profile/${userId}`).then(
       (response) => {
         this.props.setIsFetching(false);
         if (response.status >= 400) {
-          console.error(`Failed to get users:\n${response.status} ${response.statusText}`);
+          console.error(`Failed to get profile:\n${response.status} ${response.statusText}`);
           return;
         }
-        this.props.setUserInfo(response.data);
+        if (response.data.status) {
+          console.error(`Failed to get profile:\n${response.data.status} ${response.data.error}`);
+          return;
+        }
+        this.props.setUserInfo(response.data.profile);
       }
     );
   }
