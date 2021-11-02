@@ -2,7 +2,7 @@ import style from './UserInfo.module.css';
 
 const UserInfo = (props) => {
   const userInfo = [];
-  if (!Object.keys(props.userInfo).length) {
+  if (!props.userInfo) {
     userInfo.push(<span key="userInfo">user info</span>);
   } else {
     userInfo.push(<div key="userAvatar" className={style.userAvatar}><span>ava</span></div>);

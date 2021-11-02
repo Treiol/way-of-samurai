@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   isFetching:  false,
   newPostText: '',
   posts:       [],
-  userInfo:    { }
+  userInfo:    null
 };
 
 const profileReducer = (state = INITIAL_STATE, action) => {
