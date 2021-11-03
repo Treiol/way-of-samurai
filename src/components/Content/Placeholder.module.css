@@ -1,9 +1,9 @@
-div {
+.placeholder {
   display: inherit;
   width:   100%;
 }
 
-div > span {
+.placeholder > span {
   margin: auto;
   width:  fit-content;
 }

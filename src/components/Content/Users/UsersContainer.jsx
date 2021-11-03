@@ -1,8 +1,9 @@
 import React       from 'react';
 import { connect } from 'react-redux';
 import Axios       from 'axios';
+import { setIsAuthentificated } from '../../../redux/auth-reducer';
 import {
-  follow, unfollow, setFetchedUsers, setIsAuthentificated, setIsFetching, setPageParams
+  follow, unfollow, setFetchedUsers, setIsFetching, setPageParams
 } from '../../../redux/users-reducer';
 import Users from './Users';
 
@@ -25,7 +26,7 @@ class UsersApi extends React.Component {
             case -4:
             case -10:
               console.warn(`User API: ${response.data.status} ${response.data.message}`);
-              this.props.setIsAuthentificated(false);
+              if (this.props.isAuthentificated) { this.props.setIsAuthentificated(false); }
               break;
             default:
               alert('Не удалось получить список пользователей!');
@@ -33,7 +34,6 @@ class UsersApi extends React.Component {
           }
           return;
         }
-        this.props.setIsAuthentificated(true);
         this.props.setFetchedUsers(response.data.users);
         if (afterSetFetchedUsers) { afterSetFetchedUsers(response.data); }
       }
@@ -55,6 +55,7 @@ class UsersApi extends React.Component {
             case -10:
               alert('Аутентифицируйтесь, чтобы подписаться на пользователя!');
               console.warn(`Follow API: ${response.data.status} ${response.data.message}`);
+              if (this.props.isAuthentificated) { this.props.setIsAuthentificated(false); }
               break;
             default:
               alert('Не удалось подписаться на пользователя!');
@@ -63,6 +64,34 @@ class UsersApi extends React.Component {
           return;
         }
         this.props.follow(userId);
+      }
+    );
+  }
+  // ---------------------------------------------------
+  _unfollowUser(userId) {
+    Axios.delete(
+      `https://treig.ddns.net:50005/follow/${userId}`, { withCredentials: true }
+    ).then(
+      (response) => {
+        if (response.status >= 400) {
+          console.error(`Follow API: ${response.status} ${response.statusText}`);
+          return;
+        }
+        if (response.data.status < 0) {
+          switch (response.data.status) {
+            case -4:
+            case -10:
+              alert('Аутентифицируйтесь, чтобы отписаться от пользователя!');
+              console.warn(`Follow API: ${response.data.status} ${response.data.message}`);
+              if (this.props.isAuthentificated) { this.props.setIsAuthentificated(false); }
+              break;
+            default:
+              alert('Не удалось отписаться от пользователя!');
+              console.error(`Follow API: ${response.data.status} ${response.data.message}`);
+          }
+          return;
+        }
+        this.props.unfollow(userId);
       }
     );
   }
@@ -83,7 +112,7 @@ class UsersApi extends React.Component {
         fetchedUsers={this.props.fetchedUsers} isAuthentificated={this.props.isAuthentificated}
         isFetching={this.props.isFetching} pageParams={this.props.pageParams}
         fetchUsers={this._fetchUsers.bind(this)} follow={this._followUser.bind(this)}
-        unfollow={this.props.unfollow} setPageParams={this.props.setPageParams}
+        unfollow={this._unfollowUser.bind(this)} setPageParams={this.props.setPageParams}
       />
     );
   }
@@ -92,7 +121,7 @@ class UsersApi extends React.Component {
 
 const mapStateToProps = (state) => ({
   fetchedUsers:      state.usersData.fetchedUsers,
-  isAuthentificated: state.usersData.isAuthentificated,
+  isAuthentificated: state.authData.isAuthentificated,
   isFetching:        state.usersData.isFetching,
   pageParams:        state.usersData.pageParams
 });

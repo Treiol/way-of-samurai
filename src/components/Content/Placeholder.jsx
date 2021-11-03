@@ -1,8 +1,8 @@
-import './Placeholder.module.css';
+import style from './Placeholder.module.css';
 
 const Placeholder = (props) => {
   return (
-    <div><span>{props.message}</span></div>
+    <div className={style.placeholder}><span>{props.message}</span></div>
   );
 };
 
