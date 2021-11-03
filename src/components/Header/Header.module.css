@@ -4,7 +4,7 @@ header {
   display:    inherit;
 }
 
-header > span {
+header > span:first-child {
   display:   block;
   font-size: 24px;
   margin:    0 auto 0 193px;
@@ -12,7 +12,7 @@ header > span {
   position:  relative;
 }
 
-header > span::before {
+header > span:first-child::before {
   background:      url('./img/logo.png') 0 0 no-repeat;
   background-size: contain;
   content:         '';
@@ -21,6 +21,10 @@ header > span::before {
   position:        absolute;
   top:             10px;
   width:           183px;
+}
+
+header > span:last-child {
+  margin: auto 24px;
 }
 
 header > a {

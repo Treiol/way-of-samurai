@@ -4,11 +4,11 @@ import style from './User.module.css';
 const User = (props) => {
   const followUnfollow = (!props.followed)
     ? <input
-        className={style.follow} type="button" value="Добавить в друзья"
+        className={style.follow} type="button" value="Подписаться"
         onClick={() => { props.followClick(props.id); }}
       />
     : <input
-        className={style.unfollow} type="button" value="Удалить из друзей"
+        className={style.unfollow} type="button" value="Отписаться"
         onClick={() => { props.unfollowClick(props.id); }}
       />;
   return (

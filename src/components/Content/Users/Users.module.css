@@ -11,13 +11,3 @@
   margin:         0 0 auto 0;
   overflow-y:     auto;
 }
-
-.isFetching {
-  display: inherit;
-  width:   100%;
-}
-
-.isFetching > span {
-  margin: auto;
-  width:  fit-content;
-}

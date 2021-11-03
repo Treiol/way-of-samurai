@@ -1,12 +1,14 @@
-const FOLLOW            = 'FOLLOW';
-const UNFOLLOW          = 'UNFOLLOW';
-const SET_FETCHED_USERS = 'SET_FETCHED_USERS';
-const SET_IS_FETCHING   = 'SET_IS_FETCHING';
-const SET_PAGE_PARAMS   = 'SET_PAGE_PARAMS';
+const FOLLOW                 = 'FOLLOW';
+const UNFOLLOW               = 'UNFOLLOW';
+const SET_FETCHED_USERS      = 'SET_FETCHED_USERS';
+const SET_IS_AUTHENTIFICATED = 'SET_IS_AUTHENTIFICATED';
+const SET_IS_FETCHING        = 'SET_IS_FETCHING';
+const SET_PAGE_PARAMS        = 'SET_PAGE_PARAMS';
 
 const INITIAL_STATE = {
-  fetchedUsers: [],
-  isFetching:   false,
+  fetchedUsers:      [],
+  isAuthentificated: undefined,
+  isFetching:        false,
   pageParams: {
     currentPage: 1,
     pageSize:    10,
@@ -20,7 +22,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
       const newState = { ...state };
       newState.fetchedUsers = state.fetchedUsers.map(
         (fetchedUser) => {
-          if (fetchedUser.id === action.userId) { fetchedUser.followed = true; }
+          if (fetchedUser.id === action.userId) { fetchedUser.is_followed = true; }
           return fetchedUser;
         }
       );
@@ -30,7 +32,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
       const newState = { ...state };
       newState.fetchedUsers = state.fetchedUsers.map(
         (fetchedUser) => {
-          if (fetchedUser.id === action.userId) { fetchedUser.followed = false; }
+          if (fetchedUser.id === action.userId) { fetchedUser.is_followed = false; }
           return fetchedUser;
         }
       );
@@ -39,6 +41,11 @@ const usersReducer = (state = INITIAL_STATE, action) => {
     case SET_FETCHED_USERS: {
       const newState = { ...state };
       newState.fetchedUsers = action.fetchedUsers;
+      return newState;
+    }
+    case SET_IS_AUTHENTIFICATED: {
+      const newState = { ...state };
+      newState.isAuthentificated = action.isAuthentificated;
       return newState;
     }
     case SET_IS_FETCHING: {
@@ -65,6 +72,10 @@ export const unfollow = (userId) => ({
 
 export const setFetchedUsers = (fetchedUsers) => ({
   type: SET_FETCHED_USERS, fetchedUsers
+});
+
+export const setIsAuthentificated = (isAuthentificated) => ({
+  type: SET_IS_AUTHENTIFICATED, isAuthentificated
 });
 
 export const setIsFetching = (isFetching) => ({

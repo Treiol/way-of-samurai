@@ -1,8 +1,10 @@
 import React       from 'react';
 import { connect } from 'react-redux';
 import Axios       from 'axios';
-import { setUser } from '../../redux/auth-reducer';
-import Header      from './Header';
+import {
+  setIsAuthentificated, setUser
+} from '../../redux/auth-reducer';
+import Header from './Header';
 
 class AuthApi extends React.Component {
   // ---------------------------------------------------
@@ -13,11 +15,20 @@ class AuthApi extends React.Component {
           console.error(`Auth API: ${response.status} ${response.statusText}`);
           return;
         }
-        if (response.data.status) {
-          console.warn(`Auth API: ${response.data.status} ${response.data.error}`);
+        if (response.data.status < 0) {
+          switch (response.data.status) {
+            case -4:
+            case -10:
+              console.warn(`Auth API: ${response.data.status} ${response.data.message}`);
+              this.props.setIsAuthentificated(false);
+              break;
+            default:
+              console.error(`Auth API: ${response.data.status} ${response.data.message}`);
+          }
           return;
         }
-        this.props.setUser(response.data.user_data);
+        this.props.setIsAuthentificated(true);
+        this.props.setUser(response.data.user);
       }
     );
   }
@@ -28,16 +39,19 @@ class AuthApi extends React.Component {
   // ---------------------------------------------------
   render() {
     return (
-      <Header user={this.props.user} />
+      <Header
+        isAuthentificated={this.props.isAuthentificated} user={this.props.user}
+      />
     );
   }
   // ---------------------------------------------------
 };
 
 const mapStateToProps = (state) => ({
-  user: state.authData.user
+  isAuthentificated: state.authData.isAuthentificated,
+  user:              state.authData.user
 });
 
-const actions = { setUser };
+const actions = { setIsAuthentificated, setUser };
 
 export default connect(mapStateToProps, actions)(AuthApi);

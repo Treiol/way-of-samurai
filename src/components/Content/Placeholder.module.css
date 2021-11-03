@@ -1,0 +1,9 @@
+div {
+  display: inherit;
+  width:   100%;
+}
+
+div > span {
+  margin: auto;
+  width:  fit-content;
+}

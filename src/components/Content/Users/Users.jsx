@@ -1,12 +1,14 @@
+import Placeholder from '../Placeholder';
 import style       from './Users.module.css';
 import User        from './User/User';
 import PageControl from './PageControl/PageControl';
 
 const Users = (props) => {
   if (props.isFetching) {
-    return (
-      <div className={style.isFetching}><span>Запрос пользователей...</span></div>
-    );
+    return (<Placeholder message="Запрос пользователей..." />);
+  }
+  if (props.isAuthentificated !== undefined && !props.isAuthentificated) {
+    return (<Placeholder message="Аутентифицируйтесь, чтобы просмотреть пользователей!" />);
   }
   const users = props.fetchedUsers.map(
     (user) =>
