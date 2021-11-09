@@ -1,7 +1,7 @@
 import React          from 'react';
 import { connect }    from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Axios          from 'axios';
+import { profileApi } from '../../../api/api';
 import {
   addPost, setIsFetching, setUserInfo, updateNewPostText
 } from '../../../redux/profile-reducer';
@@ -11,18 +11,15 @@ class ProfileApi extends React.Component {
   // ---------------------------------------------------
   _fetchProfile(userId) {
     this.props.setIsFetching(true);
-    Axios.get(`https://treig.ddns.net:50005/profile/${userId}`).then(
-      (response) => {
+    profileApi.getProfile(userId).then(
+      (data) => {
         this.props.setIsFetching(false);
-        if (response.status >= 400) {
-          console.error(`Failed to get profile:\n${response.status} ${response.statusText}`);
+        if (!data) { return; }
+        if (data.status < 0) {
+          console.error(`Profile API: ${data.status} ${data.error}`);
           return;
         }
-        if (response.data.status) {
-          console.error(`Failed to get profile:\n${response.data.status} ${response.data.error}`);
-          return;
-        }
-        this.props.setUserInfo(response.data.profile);
+        this.props.setUserInfo(data.profile);
       }
     );
   }
