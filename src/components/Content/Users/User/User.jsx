@@ -5,10 +5,12 @@ const User = (props) => {
   const followUnfollow = (!props.followed)
     ? <input
         className={style.follow} type="button" value="Подписаться"
+        disabled={props.followingInProgress.some(userId => userId === props.id)}
         onClick={() => { props.followClick(props.id); }}
       />
     : <input
         className={style.unfollow} type="button" value="Отписаться"
+        disabled={props.followingInProgress.some(userId => userId === props.id)}
         onClick={() => { props.unfollowClick(props.id); }}
       />;
   return (

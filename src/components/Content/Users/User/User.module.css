@@ -50,6 +50,10 @@
   width:         fit-content;
 }
 
+.user > .userName > .follow:disabled {
+  background: #A8A8A8;
+}
+
 .user > .userName > .unfollow {
   background:    #FF7F50;
   border:        none;
@@ -58,4 +62,8 @@
   cursor:        pointer;
   padding:       4px 6px;
   width:         fit-content;
+}
+
+.user > .userName > .unfollow:disabled {
+  background: #A8A8A8;
 }

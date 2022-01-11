@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { followApi, usersApi }  from '../../../api/api';
 import { setIsAuthentificated } from '../../../redux/auth-reducer';
 import {
-  follow, unfollow, setFetchedUsers, setIsFetching, setPageParams
+  follow, unfollow, setFetchedUsers, setFollowingInProgress, setIsFetching, setPageParams
 } from '../../../redux/users-reducer';
 import Users from './Users';
 
@@ -35,8 +35,10 @@ class UsersApi extends React.Component {
   }
   // ---------------------------------------------------
   _followUser(userId) {
+    this.props.setFollowingInProgress(userId, true);
     followApi.postFollow(userId).then(
       (data) => {
+        this.props.setFollowingInProgress(userId, false);
         if (!data) { return; }
         if (data.status < 0) {
           switch (data.status) {
@@ -58,8 +60,10 @@ class UsersApi extends React.Component {
   }
   // ---------------------------------------------------
   _unfollowUser(userId) {
+    this.props.setFollowingInProgress(userId, true);
     followApi.deleteFollow(userId).then(
       (data) => {
+        this.props.setFollowingInProgress(userId, false);
         if (!data) { return; }
         if (data.status < 0) {
           switch (data.status) {
@@ -95,6 +99,7 @@ class UsersApi extends React.Component {
       <Users
         fetchedUsers={this.props.fetchedUsers} isAuthentificated={this.props.isAuthentificated}
         isFetching={this.props.isFetching} pageParams={this.props.pageParams}
+        followingInProgress={this.props.followingInProgress}
         fetchUsers={this._fetchUsers.bind(this)} follow={this._followUser.bind(this)}
         unfollow={this._unfollowUser.bind(this)} setPageParams={this.props.setPageParams}
       />
@@ -104,14 +109,16 @@ class UsersApi extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-  fetchedUsers:      state.usersData.fetchedUsers,
-  isAuthentificated: state.authData.isAuthentificated,
-  isFetching:        state.usersData.isFetching,
-  pageParams:        state.usersData.pageParams
+  fetchedUsers:        state.usersData.fetchedUsers,
+  isAuthentificated:   state.authData.isAuthentificated,
+  isFetching:          state.usersData.isFetching,
+  followingInProgress: state.usersData.followingInProgress,
+  pageParams:          state.usersData.pageParams
 });
 
 const actions = {
-  follow, unfollow, setFetchedUsers, setIsAuthentificated, setIsFetching, setPageParams
+  follow, unfollow, setFetchedUsers, setFollowingInProgress, setIsAuthentificated,
+  setIsFetching, setPageParams
 };
 
 export default connect(mapStateToProps, actions)(UsersApi);

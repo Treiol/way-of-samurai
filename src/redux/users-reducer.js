@@ -1,12 +1,14 @@
-const FOLLOW            = 'FOLLOW';
-const UNFOLLOW          = 'UNFOLLOW';
-const SET_FETCHED_USERS = 'SET_FETCHED_USERS';
-const SET_IS_FETCHING   = 'SET_IS_FETCHING';
-const SET_PAGE_PARAMS   = 'SET_PAGE_PARAMS';
+const FOLLOW                    = 'FOLLOW';
+const UNFOLLOW                  = 'UNFOLLOW';
+const SET_FETCHED_USERS         = 'SET_FETCHED_USERS';
+const SET_FOLLOWING_IN_PROGRESS = 'SET_FOLLOWING_IN_PROGRESS';
+const SET_IS_FETCHING           = 'SET_IS_FETCHING';
+const SET_PAGE_PARAMS           = 'SET_PAGE_PARAMS';
 
 const INITIAL_STATE = {
-  fetchedUsers: [],
-  isFetching:   false,
+  fetchedUsers:        [],
+  followingInProgress: [],
+  isFetching:          false,
   pageParams: {
     currentPage: 1,
     pageSize:    10,
@@ -41,6 +43,13 @@ const usersReducer = (state = INITIAL_STATE, action) => {
       newState.fetchedUsers = action.fetchedUsers;
       return newState;
     }
+    case SET_FOLLOWING_IN_PROGRESS: {
+      const newState = { ...state };
+      newState.followingInProgress = action.isInProgress
+        ? [...state.followingInProgress, action.userId]
+        : state.followingInProgress.filter(userId => userId !== action.userId);
+      return newState;
+    }
     case SET_IS_FETCHING: {
       const newState      = { ...state };
       newState.isFetching = action.isFetching;
@@ -65,6 +74,10 @@ export const unfollow = (userId) => ({
 
 export const setFetchedUsers = (fetchedUsers) => ({
   type: SET_FETCHED_USERS, fetchedUsers
+});
+
+export const setFollowingInProgress = (userId, isInProgress) => ({
+  type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress
 });
 
 export const setIsFetching = (isFetching) => ({

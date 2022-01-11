@@ -15,6 +15,7 @@ const Users = (props) => {
       <User
         id={user.id} key={`user${user.id}`} name={user.name} followed={user.is_followed}
         followClick={props.follow} unfollowClick={props.unfollow}
+        followingInProgress={props.followingInProgress}
       />
   );
   return (
