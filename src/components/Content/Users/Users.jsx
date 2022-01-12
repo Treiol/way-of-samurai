@@ -22,9 +22,9 @@ const Users = (props) => {
     <div className={`${style.content} ${style.users}`}>
       <div className={style.userList}>{users}</div>
       <PageControl
-        currentPage={props.pageParams.currentPage} pageSize={props.pageParams.pageSize}
-        pagesCount={props.pageParams.pagesCount}
-        fetchUsers={props.fetchUsers} setPageParams={props.setPageParams}
+        isAuthentificated={props.isAuthentificated} pageParams={props.pageParams}
+        fetchUsers={props.fetchUsers} setIsAuthentificated={props.setIsAuthentificated}
+        setPageParams={props.setPageParams}
       />
     </div>
   );

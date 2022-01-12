@@ -1,38 +1,13 @@
-import React       from 'react';
-import { connect } from 'react-redux';
-import { followApi, usersApi }  from '../../../api/api';
+import React         from 'react';
+import { connect }   from 'react-redux';
+import { followApi } from '../../../api/api';
 import { setIsAuthentificated } from '../../../redux/auth-reducer';
 import {
-  follow, unfollow, setFetchedUsers, setFollowingInProgress, setIsFetching, setPageParams
+  fetchUsers, follow, unfollow, setFollowingInProgress, setIsFetching, setPageParams
 } from '../../../redux/users-reducer';
 import Users from './Users';
 
 class UsersApi extends React.Component {
-  // ---------------------------------------------------
-  _fetchUsers(currentPage, pageSize, afterSetFetchedUsers = null) {
-    this.props.setIsFetching(true);
-    usersApi.getUsers(currentPage, pageSize).then(
-      (data) => {
-        this.props.setIsFetching(false);
-        if (!data) { return; }
-        if (data.status < 0) {
-          switch (data.status) {
-            case -4:
-            case -10:
-              console.warn(`Users API: ${data.status} ${data.message}`);
-              if (this.props.isAuthentificated) { this.props.setIsAuthentificated(false); }
-              break;
-            default:
-              alert('Не удалось получить список пользователей!');
-              console.error(`Users API: ${data.status} ${data.message}`);
-          }
-          return;
-        }
-        this.props.setFetchedUsers(data.users);
-        if (afterSetFetchedUsers) { afterSetFetchedUsers(data); }
-      }
-    );
-  }
   // ---------------------------------------------------
   _followUser(userId) {
     this.props.setFollowingInProgress(userId, true);
@@ -85,7 +60,11 @@ class UsersApi extends React.Component {
   }
   // ---------------------------------------------------
   componentDidMount() {
-    this._fetchUsers(this.props.pageParams.currentPage, this.props.pageParams.pageSize,
+    const authentification = {
+      isAuthentificated:    this.props.isAuthentificated,
+      setIsAuthentificated: this.props.setIsAuthentificated
+    };
+    this.props.fetchUsers(authentification, this.props.pageParams,
       (data) => {
         this.props.setPageParams({
           pagesCount: Math.ceil(data.total_count / this.props.pageParams.pageSize)
@@ -97,11 +76,12 @@ class UsersApi extends React.Component {
   render() {
     return (
       <Users
-        fetchedUsers={this.props.fetchedUsers} isAuthentificated={this.props.isAuthentificated}
-        isFetching={this.props.isFetching} pageParams={this.props.pageParams}
-        followingInProgress={this.props.followingInProgress}
-        fetchUsers={this._fetchUsers.bind(this)} follow={this._followUser.bind(this)}
-        unfollow={this._unfollowUser.bind(this)} setPageParams={this.props.setPageParams}
+        fetchedUsers={this.props.fetchedUsers} followingInProgress={this.props.followingInProgress}
+        isAuthentificated={this.props.isAuthentificated} isFetching={this.props.isFetching}
+        pageParams={this.props.pageParams}
+        fetchUsers={this.props.fetchUsers.bind(this)} follow={this._followUser.bind(this)}
+        unfollow={this._unfollowUser.bind(this)} setIsAuthentificated={this.props.setIsAuthentificated}
+        setPageParams={this.props.setPageParams}
       />
     );
   }
@@ -117,7 +97,7 @@ const mapStateToProps = (state) => ({
 });
 
 const actions = {
-  follow, unfollow, setFetchedUsers, setFollowingInProgress, setIsAuthentificated,
+  fetchUsers, follow, unfollow, setFollowingInProgress, setIsAuthentificated,
   setIsFetching, setPageParams
 };
 

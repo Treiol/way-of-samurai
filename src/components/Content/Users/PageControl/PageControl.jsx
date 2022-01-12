@@ -3,17 +3,24 @@ import style from './PageControl.module.css';
 const PageControl = (props) => {
   // ---------------------------------------------------
   const pageClick = (pageNumber) => {
-    if (pageNumber === props.currentPage) { return; }
-    props.fetchUsers(pageNumber, props.pageSize,
+    if (pageNumber === props.pageParams.currentPage) { return; }
+    const authentification = {
+      isAuthentificated:    props.isAuthentificated,
+      setIsAuthentificated: props.setIsAuthentificated
+    };
+    const newPageParams = { ...props.pageParams, currentPage: pageNumber };
+    props.fetchUsers(authentification, newPageParams,
       () => {
-        props.setPageParams({ currentPage: pageNumber });
+        props.setPageParams(newPageParams);
       }
     );
   };
   // ---------------------------------------------------
   const pages = [];
-  for (let i = 1; i <= props.pagesCount; i++) {
-    const pageClassName = (i === props.currentPage) ? `${style.page} ${style.current}` : style.page;
+  for (let i = 1; i <= props.pageParams.pagesCount; i++) {
+    const pageClassName = (i === props.pageParams.currentPage)
+      ? `${style.page} ${style.current}`
+      : style.page;
     pages.push(
       <span key={`page${i}`} className={pageClassName} onClick={() => { pageClick(i); }}>{i}</span>
     );

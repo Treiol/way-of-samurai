@@ -1,3 +1,5 @@
+import { usersApi } from '../api/api';
+
 const FOLLOW                    = 'FOLLOW';
 const UNFOLLOW                  = 'UNFOLLOW';
 const SET_FETCHED_USERS         = 'SET_FETCHED_USERS';
@@ -62,6 +64,31 @@ const usersReducer = (state = INITIAL_STATE, action) => {
     }
     default: return state;
   }
+};
+
+export const fetchUsers = (authObj, pageParams, afterUsersFetched) => (dispatch) => {
+  dispatch(setIsFetching(true));
+  usersApi.getUsers(pageParams.currentPage, pageParams.pageSize).then(
+    (data) => {
+      dispatch(setIsFetching(false));
+      if (!data) { return; }
+      if (data.status < 0) {
+        switch (data.status) {
+          case -4:
+          case -10:
+            console.warn(`Users API: ${data.status} ${data.message}`);
+            if (authObj.isAuthentificated) { dispatch(authObj.setIsAuthentificated(false)); }
+            break;
+          default:
+            alert('Не удалось получить список пользователей!');
+            console.error(`Users API: ${data.status} ${data.message}`);
+        }
+        return;
+      }
+      dispatch(setFetchedUsers(data.users));
+      if (afterUsersFetched) { afterUsersFetched(data); }
+    }
+  );
 };
 
 export const follow = (userId) => ({
