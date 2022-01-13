@@ -1,7 +1,8 @@
-import { usersApi } from '../api/api';
+import { followApi, usersApi }  from '../api/api';
+import { setIsAuthentificated } from './auth-reducer';
 
-const FOLLOW                    = 'FOLLOW';
-const UNFOLLOW                  = 'UNFOLLOW';
+const ACCEPT_FOLLOW             = 'ACCEPT_FOLLOW';
+const ACCEPT_UNFOLLOW           = 'ACCEPT_UNFOLLOW';
 const SET_FETCHED_USERS         = 'SET_FETCHED_USERS';
 const SET_FOLLOWING_IN_PROGRESS = 'SET_FOLLOWING_IN_PROGRESS';
 const SET_IS_FETCHING           = 'SET_IS_FETCHING';
@@ -20,7 +21,7 @@ const INITIAL_STATE = {
 
 const usersReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FOLLOW: {
+    case ACCEPT_FOLLOW: {
       const newState = { ...state };
       newState.fetchedUsers = state.fetchedUsers.map(
         (fetchedUser) => {
@@ -30,7 +31,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
       );
       return newState;
     }
-    case UNFOLLOW: {
+    case ACCEPT_UNFOLLOW: {
       const newState = { ...state };
       newState.fetchedUsers = state.fetchedUsers.map(
         (fetchedUser) => {
@@ -66,7 +67,15 @@ const usersReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export const fetchUsers = (authObj, pageParams, afterUsersFetched) => (dispatch) => {
+const setFollowingInProgress = (userId, isInProgress) => ({
+  type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress
+});
+
+export const fetchUsers = (pageParams, afterUsersFetched) => (dispatch) => {
+  // ---------------------------------------------------
+  const setFetchedUsers = (fetchedUsers) => ({ type: SET_FETCHED_USERS, fetchedUsers });
+  const setIsFetching   = (isFetching)   => ({ type: SET_IS_FETCHING,   isFetching });
+  // ---------------------------------------------------
   dispatch(setIsFetching(true));
   usersApi.getUsers(pageParams.currentPage, pageParams.pageSize).then(
     (data) => {
@@ -77,7 +86,7 @@ export const fetchUsers = (authObj, pageParams, afterUsersFetched) => (dispatch)
           case -4:
           case -10:
             console.warn(`Users API: ${data.status} ${data.message}`);
-            if (authObj.isAuthentificated) { dispatch(authObj.setIsAuthentificated(false)); }
+            dispatch(setIsAuthentificated(false));
             break;
           default:
             alert('Не удалось получить список пользователей!');
@@ -91,25 +100,61 @@ export const fetchUsers = (authObj, pageParams, afterUsersFetched) => (dispatch)
   );
 };
 
-export const follow = (userId) => ({
-  type: FOLLOW, userId
-});
+export const followUser = (userId) => (dispatch) => {
+  // ---------------------------------------------------
+  const acceptFollow = (userId) => ({ type: ACCEPT_FOLLOW, userId });
+  // ---------------------------------------------------
+  dispatch(setFollowingInProgress(userId, true));
+  followApi.postFollow(userId).then(
+    (data) => {
+      dispatch(setFollowingInProgress(userId, false));
+      if (!data) { return; }
+      if (data.status < 0) {
+        switch (data.status) {
+          case -4:
+          case -10:
+            alert('Аутентифицируйтесь, чтобы подписаться на пользователя!');
+            console.warn(`Follow API: ${data.status} ${data.message}`);
+            dispatch(setIsAuthentificated(false));
+            break;
+          default:
+            alert('Не удалось подписаться на пользователя!');
+            console.error(`Follow API: ${data.status} ${data.message}`);
+        }
+        return;
+      }
+      dispatch(acceptFollow(userId));
+    }
+  );
+};
 
-export const unfollow = (userId) => ({
-  type: UNFOLLOW, userId
-});
-
-export const setFetchedUsers = (fetchedUsers) => ({
-  type: SET_FETCHED_USERS, fetchedUsers
-});
-
-export const setFollowingInProgress = (userId, isInProgress) => ({
-  type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress
-});
-
-export const setIsFetching = (isFetching) => ({
-  type: SET_IS_FETCHING, isFetching
-});
+export const unfollowUser = (userId) => (dispatch) => {
+  // ---------------------------------------------------
+  const acceptUnfollow = (userId) => ({ type: ACCEPT_UNFOLLOW, userId });  
+  // ---------------------------------------------------
+  dispatch(setFollowingInProgress(userId, true));
+  followApi.deleteFollow(userId).then(
+    (data) => {
+      dispatch(setFollowingInProgress(userId, false));
+      if (!data) { return; }
+      if (data.status < 0) {
+        switch (data.status) {
+          case -4:
+          case -10:
+            alert('Аутентифицируйтесь, чтобы отписаться от пользователя!');
+            console.warn(`Follow API: ${data.status} ${data.message}`);
+            dispatch(setIsAuthentificated(false));
+            break;
+          default:
+            alert('Не удалось отписаться от пользователя!');
+            console.error(`Follow API: ${data.status} ${data.message}`);
+        }
+        return;
+      }
+      dispatch(acceptUnfollow(userId));
+    }
+  );
+};
 
 export const setPageParams = (pageParams) => ({
   type: SET_PAGE_PARAMS, pageParams

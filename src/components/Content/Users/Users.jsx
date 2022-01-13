@@ -14,17 +14,16 @@ const Users = (props) => {
     (user) =>
       <User
         id={user.id} key={`user${user.id}`} name={user.name} followed={user.is_followed}
-        followClick={props.follow} unfollowClick={props.unfollow}
         followingInProgress={props.followingInProgress}
+        followClick={props.follow} unfollowClick={props.unfollow}
       />
   );
   return (
     <div className={`${style.content} ${style.users}`}>
       <div className={style.userList}>{users}</div>
       <PageControl
-        isAuthentificated={props.isAuthentificated} pageParams={props.pageParams}
-        fetchUsers={props.fetchUsers} setIsAuthentificated={props.setIsAuthentificated}
-        setPageParams={props.setPageParams}
+        pageParams={props.pageParams}
+        fetchUsers={props.fetchUsers} setPageParams={props.setPageParams}
       />
     </div>
   );

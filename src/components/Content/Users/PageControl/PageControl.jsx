@@ -4,12 +4,8 @@ const PageControl = (props) => {
   // ---------------------------------------------------
   const pageClick = (pageNumber) => {
     if (pageNumber === props.pageParams.currentPage) { return; }
-    const authentification = {
-      isAuthentificated:    props.isAuthentificated,
-      setIsAuthentificated: props.setIsAuthentificated
-    };
     const newPageParams = { ...props.pageParams, currentPage: pageNumber };
-    props.fetchUsers(authentification, newPageParams,
+    props.fetchUsers(newPageParams,
       () => {
         props.setPageParams(newPageParams);
       }

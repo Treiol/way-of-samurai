@@ -1,3 +1,5 @@
+import { profileApi } from '../api/api';
+
 const ADD_POST             = 'ADD_POST';
 const SET_IS_FETCHING      = 'SET_IS_FETCHING';
 const SET_USER_INFO        = 'SET_USER_INFO';
@@ -48,13 +50,24 @@ export const addPost = () => ({
   type: ADD_POST
 });
 
-export const setIsFetching = (isFetching) => ({
-  type: SET_IS_FETCHING, isFetching
-});
-
-export const setUserInfo = (userInfo) => ({
-  type: SET_USER_INFO, userInfo
-});
+export const fetchProfile = (userId) => (dispatch) => {
+  // ---------------------------------------------------
+  const setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching });
+  const setUserInfo   = (userInfo)   => ({ type: SET_USER_INFO,   userInfo });  
+  // ---------------------------------------------------
+  dispatch(setIsFetching(true));
+  profileApi.getProfile(userId).then(
+    (data) => {
+      dispatch(setIsFetching(false));
+      if (!data) { return; }
+      if (data.status < 0) {
+        console.error(`Profile API: ${data.status} ${data.error}`);
+        return;
+      }
+      dispatch(setUserInfo(data.profile));
+    }
+  );
+};
 
 export const updateNewPostText = (newPostText) => ({
   type: UPDATE_NEW_POST_TEXT, newPostText
