@@ -28,7 +28,8 @@ header > span:last-child {
 }
 
 header > a {
-  color:      #FFFFFF;
-  font-style: italic;
-  margin:     auto 24px;
+  border-bottom:   1px dashed;
+  color:           #FFFFFF;
+  margin:          auto 24px;
+  text-decoration: none;
 }

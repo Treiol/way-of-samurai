@@ -3,7 +3,11 @@ import './Header.module.css';
 
 const Header = (props) => {
   const user = [];
-  if (props.isAuthentificated !== undefined && !props.isAuthentificated) { user.push(<span key="user0">Гость</span>); }
+  if (props.isAuthentificated !== undefined && !props.isAuthentificated) {
+    user.push(
+      <NavLink key="log_in" to="/log_in">Войти</NavLink>
+    );
+  }
   else { if (props.user) {
     user.push(
       <NavLink key={`user${props.user.id}`} to={`/profile/${props.user.id}`}>

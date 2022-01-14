@@ -24,7 +24,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export const fetchAuthData = () => (dispatch) => {
+export const fetchAuthData = (needToSetUser = true) => (dispatch) => {
   // ---------------------------------------------------
   const setUser = (user) => ({ type: SET_USER, user });
   // ---------------------------------------------------
@@ -44,7 +44,7 @@ export const fetchAuthData = () => (dispatch) => {
         return;
       }
       dispatch(setIsAuthentificated(true));
-      dispatch(setUser(data.user));
+      if (needToSetUser) { dispatch(setUser(data.user)); }
     }
   );
 };

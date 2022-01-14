@@ -1,12 +1,15 @@
-import style    from './Profile.module.css';
-import Post     from './Post/Post';
-import UserInfo from './UserInfo/UserInfo';
+import { Redirect } from 'react-router-dom';
+import Placeholder  from '../Placeholder';
+import style        from './Profile.module.css';
+import Post         from './Post/Post';
+import UserInfo     from './UserInfo/UserInfo';
 
 const Profile = (props) => {
+  if (props.isAuthentificated !== undefined && !props.isAuthentificated) {
+    return (<Redirect to="/log_in" />);
+  }
   if (props.isFetching) {
-    return (
-      <div className={style.isFetching}><span>Запрос информации о пользователе...</span></div>
-    );
+    return (<Placeholder message="Запрос информации о пользователе..." />);
   }
   // ---------------------------------------------------
   const addPostClick = (postText) => {
