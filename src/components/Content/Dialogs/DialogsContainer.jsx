@@ -1,20 +1,23 @@
-import React             from 'react';
-import { connect }       from 'react-redux';
-import { fetchAuthData } from '../../../redux/auth-reducer';
+import React       from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { initDialog, sendMessage, updateNewMessageText } from '../../../redux/dialogs-reducer';
+import { withAuthRedirect } from '../../withAuthRedirect';
 import Dialogs from './Dialogs';
 
+const actions = { initDialog, sendMessage, updateNewMessageText };
+
+const mapStateToProps = (state) => ({
+  contacts: state.dialogsData.contacts,
+  dialogs:  state.dialogsData.dialogs
+});
+
 class DialogsApi extends React.Component {
-  // ---------------------------------------------------
-  componentDidMount() {
-    this.props.fetchAuthData(false);
-  }
   // ---------------------------------------------------
   render() {
     return (
       <Dialogs
         contacts={this.props.contacts} dialogs={this.props.dialogs}
-        isAuthentificated={this.props.isAuthentificated}
         initDialog={this.props.initDialog.bind(this)} sendMessage={this.props.sendMessage.bind(this)}
         updateNewMessageText={this.props.updateNewMessageText.bind(this)}
       />
@@ -23,12 +26,9 @@ class DialogsApi extends React.Component {
   // ---------------------------------------------------
 };
 
-const mapStateToProps = (state) => ({
-  contacts:          state.dialogsData.contacts,
-  dialogs:           state.dialogsData.dialogs,
-  isAuthentificated: state.authData.isAuthentificated
-});
+const DialogsContainer = compose(
+  connect(mapStateToProps, actions),
+  withAuthRedirect
+)(DialogsApi)
 
-const actions = { fetchAuthData, initDialog, sendMessage, updateNewMessageText };
-
-export default connect(mapStateToProps, actions)(DialogsApi);
+export default DialogsContainer;

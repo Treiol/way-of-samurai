@@ -3,10 +3,17 @@ import { connect } from 'react-redux';
 import { fetchAuthData } from '../../redux/auth-reducer';
 import Header from './Header';
 
-class AuthApi extends React.Component {
+const actions = { fetchAuthData };
+
+const mapStateToProps = (state) => ({
+  isAuthentificated: state.authData.isAuthentificated,
+  user:              state.authData.user
+});
+
+class HeaderApi extends React.Component {
   // ---------------------------------------------------
   componentDidMount() {
-    this.props.fetchAuthData();
+    this.props.fetchAuthData(true);
   }
   // ---------------------------------------------------
   render() {
@@ -19,11 +26,6 @@ class AuthApi extends React.Component {
   // ---------------------------------------------------
 };
 
-const mapStateToProps = (state) => ({
-  isAuthentificated: state.authData.isAuthentificated,
-  user:              state.authData.user
-});
+const HeaderContainer = connect(mapStateToProps, actions)(HeaderApi)
 
-const actions = { fetchAuthData };
-
-export default connect(mapStateToProps, actions)(AuthApi);
+export default HeaderContainer;

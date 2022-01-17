@@ -1,13 +1,9 @@
-import { Redirect, useParams } from 'react-router-dom';
-import style        from './Dialogs.module.css';
-import Contact      from './Contact/Contact';
-import MessageChain from './MessageChain/MessageChain';
+import { useParams } from 'react-router-dom';
+import style         from './Dialogs.module.css';
+import Contact       from './Contact/Contact';
+import MessageChain  from './MessageChain/MessageChain';
 
 const Dialogs = (props) => {
-  const { contactId } = useParams();
-  if (props.isAuthentificated !== undefined && !props.isAuthentificated) {
-    return (<Redirect to="/log_in" />);
-  }
   // ---------------------------------------------------
   const messageTextChange = (contactId, value) => {
     if (!contactId) { return; }
@@ -26,6 +22,7 @@ const Dialogs = (props) => {
     props.sendMessage(contactId);
   };
   // ---------------------------------------------------
+  const { contactId } = useParams();
   const contacts = props.contacts.map(
     (contact) => 
       <Contact

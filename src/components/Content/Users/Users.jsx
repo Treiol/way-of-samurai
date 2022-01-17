@@ -1,16 +1,8 @@
-import { Redirect } from 'react-router-dom';
-import Placeholder  from '../Placeholder';
-import style        from './Users.module.css';
-import User         from './User/User';
-import PageControl  from './PageControl/PageControl';
+import style       from './Users.module.css';
+import User        from './User/User';
+import PageControl from './PageControl/PageControl';
 
 const Users = (props) => {
-  if (props.isAuthentificated !== undefined && !props.isAuthentificated) {
-    return (<Redirect to="/log_in" />);
-  }
-  if (props.isFetching) {
-    return (<Placeholder message="Запрос пользователей..." />);
-  }
   const users = props.fetchedUsers.map(
     (user) =>
       <User

@@ -24,7 +24,11 @@ const authReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export const fetchAuthData = (needToSetUser = true) => (dispatch) => {
+export const fetchAuthData = (needToSetUser = false) => (dispatch) => {
+  // ---------------------------------------------------
+  const setIsAuthentificated = (isAuthentificated) => ({
+    type: SET_IS_AUTHENTIFICATED, isAuthentificated
+  });
   // ---------------------------------------------------
   const setUser = (user) => ({ type: SET_USER, user });
   // ---------------------------------------------------
@@ -37,6 +41,7 @@ export const fetchAuthData = (needToSetUser = true) => (dispatch) => {
           case -10:
             console.warn(`Auth API: ${data.status} ${data.message}`);
             dispatch(setIsAuthentificated(false));
+            if (needToSetUser) { dispatch(setUser(null)); }
             break;
           default:
             console.error(`Auth API: ${data.status} ${data.message}`);
@@ -48,9 +53,5 @@ export const fetchAuthData = (needToSetUser = true) => (dispatch) => {
     }
   );
 };
-
-export const setIsAuthentificated = (isAuthentificated) => ({
-  type: SET_IS_AUTHENTIFICATED, isAuthentificated
-});
 
 export default authReducer;

@@ -1,5 +1,4 @@
 import { followApi, usersApi }  from '../api/api';
-import { setIsAuthentificated } from './auth-reducer';
 
 const ACCEPT_FOLLOW             = 'ACCEPT_FOLLOW';
 const ACCEPT_UNFOLLOW           = 'ACCEPT_UNFOLLOW';
@@ -82,16 +81,7 @@ export const fetchUsers = (pageParams, afterUsersFetched) => (dispatch) => {
       dispatch(setIsFetching(false));
       if (!data) { return; }
       if (data.status < 0) {
-        switch (data.status) {
-          case -4:
-          case -10:
-            console.warn(`Users API: ${data.status} ${data.message}`);
-            dispatch(setIsAuthentificated(false));
-            break;
-          default:
-            alert('Не удалось получить список пользователей!');
-            console.error(`Users API: ${data.status} ${data.message}`);
-        }
+        console.error(`Users API: ${data.status} ${data.message}`);
         return;
       }
       dispatch(setFetchedUsers(data.users));
@@ -110,17 +100,7 @@ export const followUser = (userId) => (dispatch) => {
       dispatch(setFollowingInProgress(userId, false));
       if (!data) { return; }
       if (data.status < 0) {
-        switch (data.status) {
-          case -4:
-          case -10:
-            alert('Аутентифицируйтесь, чтобы подписаться на пользователя!');
-            console.warn(`Follow API: ${data.status} ${data.message}`);
-            dispatch(setIsAuthentificated(false));
-            break;
-          default:
-            alert('Не удалось подписаться на пользователя!');
-            console.error(`Follow API: ${data.status} ${data.message}`);
-        }
+        console.error(`Follow API: ${data.status} ${data.message}`);
         return;
       }
       dispatch(acceptFollow(userId));
@@ -138,17 +118,7 @@ export const unfollowUser = (userId) => (dispatch) => {
       dispatch(setFollowingInProgress(userId, false));
       if (!data) { return; }
       if (data.status < 0) {
-        switch (data.status) {
-          case -4:
-          case -10:
-            alert('Аутентифицируйтесь, чтобы отписаться от пользователя!');
-            console.warn(`Follow API: ${data.status} ${data.message}`);
-            dispatch(setIsAuthentificated(false));
-            break;
-          default:
-            alert('Не удалось отписаться от пользователя!');
-            console.error(`Follow API: ${data.status} ${data.message}`);
-        }
+        console.error(`Follow API: ${data.status} ${data.message}`);
         return;
       }
       dispatch(acceptUnfollow(userId));
