@@ -17,6 +17,32 @@ export const authApi = {
         return response.data;
       }
     );
+  },
+  // ---------------------------------------------------
+  logIn(credentials) {
+    return axiosInstance.post('auth', credentials).then(
+      (response) => {
+        if (response.status >= 400) {
+          console.error(`Auth API: ${response.status} ${response.statusText}`);
+          return null;
+        }
+        return response.data;
+      }
+    );
+  },
+  // ---------------------------------------------------
+  logOut() {
+    return axiosInstance.post('auth', { log_out: '' }).then(
+      (response) => {
+        console.log(response);
+        if (response.status >= 400) {
+          console.error(`Auth API: ${response.status} ${response.statusText}`);
+          return null;
+        }
+        if (!response.data) { return { status: 0, message: '' }; }
+        return response.data;
+      }
+    );
   }
   // ---------------------------------------------------
 };
