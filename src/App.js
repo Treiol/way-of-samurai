@@ -4,7 +4,7 @@ import HeaderContainer  from './components/Header/HeaderContainer';
 import Sidebar          from './components/Sidebar/Sidebar';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import Feed             from './components/Content/Feed/Feed';
-import LogIn            from './components/Content/LogIn/LogIn';
+import LogInContainer   from './components/Content/LogIn/LogInContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import UsersContainer   from './components/Content/Users/UsersContainer';
 
@@ -16,7 +16,7 @@ const App = () => {
         <Sidebar />
         <Route path="/." exact><Feed /></Route>
         <Route path="/dialogs/:contactId?" exact><DialogsContainer /></Route>
-        <Route path="/log_in" exact><LogIn /></Route>
+        <Route path="/log_in" exact><LogInContainer /></Route>
         <Route path="/profile/:userId?" exact><ProfileContainer /></Route>
         <Route path="/users" exact><UsersContainer /></Route>
       </div>

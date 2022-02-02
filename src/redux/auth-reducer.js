@@ -25,13 +25,6 @@ const authReducer = (state = INITIAL_STATE, action) => {
 };
 
 export const fetchAuthData = (needToSetUser = false) => (dispatch) => {
-  // ---------------------------------------------------
-  const setIsAuthentificated = (isAuthentificated) => ({
-    type: SET_IS_AUTHENTIFICATED, isAuthentificated
-  });
-  // ---------------------------------------------------
-  const setUser = (user) => ({ type: SET_USER, user });
-  // ---------------------------------------------------
   authApi.getAuth().then(
     (data) => {
       if (!data) { return; }
@@ -53,5 +46,34 @@ export const fetchAuthData = (needToSetUser = false) => (dispatch) => {
     }
   );
 };
+
+export const fetchLoggedStatus = (credentials = null) => (dispatch) => {
+  switch (credentials !== null) {
+    case true:
+      break;
+    case false:
+      authApi.logOut().then(
+        (data) => {
+          if (!data) { return; }
+          if (data.status < 0) {
+            console.error(`Auth API: ${data.status} ${data.message}`);
+            return;
+          }
+          return;
+        }
+      );
+      break;
+    default:
+      break;
+  };
+};
+
+export const setIsAuthentificated = (isAuthentificated) => ({
+  type: SET_IS_AUTHENTIFICATED, isAuthentificated
+});
+
+export const setUser = (user) => ({
+  type: SET_USER, user
+});
 
 export default authReducer;

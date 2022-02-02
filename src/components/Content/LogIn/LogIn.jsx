@@ -1,6 +1,5 @@
 import { Field, reduxForm } from 'redux-form';
-import { Redirect } from 'react-router-dom';
-import { authApi }  from '../../../api/api';
+import { Redirect }         from 'react-router-dom';
 
 let LogInForm = (props) => {
   return (
@@ -19,24 +18,11 @@ let LogInForm = (props) => {
 LogInForm = reduxForm({ form: 'log_in' })(LogInForm);
 
 const LogIn = (props) => {
-  // ---------------------------------------------------
-  const logInFormSubmit = (formData) => {
-    authApi.logIn(formData).then(
-      (data) => {
-        if (!data) { return; }
-        if (data.status < 0) {
-          console.error(`Auth API: ${data.status} ${data.message}`);
-          return;
-        }
-        return (<Redirect to="/" />);
-      }
-    );
-  };
-  // ---------------------------------------------------
+  if (props.isAuthentificated) { return (<Redirect to="/" />); }
   return (
     <div>
       <h1>Вход на сайт</h1>
-      <LogInForm onSubmit={logInFormSubmit} />
+      <LogInForm onSubmit={props.onFormSubmit} />
     </div>
     );
 };
