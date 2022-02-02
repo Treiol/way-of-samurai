@@ -4,7 +4,7 @@ import { Redirect }      from 'react-router-dom';
 import { fetchAuthData } from '../redux/auth-reducer';
 
 const actions = { fetchAuthData };
-const mapStateToProps = (state) => ({ isAuthentificated: state.authData.isAuthentificated });
+const mapStateToProps = (state) => ({ isAuthenticated: state.authData.isAuthenticated });
 
 export const withAuthRedirect = (Component) => {
   class AuthRedirect extends React.Component {
@@ -14,7 +14,7 @@ export const withAuthRedirect = (Component) => {
     }
     // ---------------------------------------------------
     render() {
-      if (this.props.isAuthentificated !== undefined && !this.props.isAuthentificated) {
+      if (this.props.isAuthenticated !== undefined && !this.props.isAuthenticated) {
         return (<Redirect to="/log_in" />);
       }
       return (<Component {...this.props} />);

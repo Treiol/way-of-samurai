@@ -8,8 +8,8 @@ import Header from './Header';
 const actions = { fetchAuthData, fetchLoggedStatus };
 
 const mapStateToProps = (state) => ({
-  isAuthentificated: state.authData.isAuthentificated,
-  user:              state.authData.user
+  isAuthenticated: state.authData.isAuthenticated,
+  user:            state.authData.user
 });
 
 class HeaderApi extends React.Component {
@@ -21,7 +21,7 @@ class HeaderApi extends React.Component {
   render() {
     return (
       <Header
-        isAuthentificated={this.props.isAuthentificated} user={this.props.user}
+        isAuthenticated={this.props.isAuthenticated} user={this.props.user}
         onLogOut={this.props.fetchLoggedStatus}
       />
     );

@@ -1,5 +1,5 @@
-import { Field, reduxForm } from 'redux-form';
 import { Redirect }         from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
 
 let LogInForm = (props) => {
   return (
@@ -18,7 +18,7 @@ let LogInForm = (props) => {
 LogInForm = reduxForm({ form: 'log_in' })(LogInForm);
 
 const LogIn = (props) => {
-  if (props.isAuthentificated) { return (<Redirect to="/" />); }
+  if (props.isAuthenticated) { return (<Redirect to="/" />); }
   return (
     <div>
       <h1>Вход на сайт</h1>

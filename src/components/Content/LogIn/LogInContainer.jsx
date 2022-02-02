@@ -1,27 +1,35 @@
-import { connect }       from 'react-redux';
-import { authApi }       from '../../../api/api';
-import { fetchAuthData } from '../../../redux/auth-reducer';
+import React        from 'react';
+import { connect }  from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import {
+  fetchAuthData, fetchLoggedStatus
+} from '../../../redux/auth-reducer';
 import LogIn from './LogIn';
 
-const actions         = { fetchAuthData };
-const mapStateToProps = (state) => ({ isAuthentificated: state.authData.isAuthentificated });
+const actions = { fetchAuthData, fetchLoggedStatus };
 
-const LogInApi = (props) => {
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.authData.isAuthenticated,
+  user:            state.authData.user
+});
+
+class LogInApi extends React.Component {
   // ---------------------------------------------------
-  const logInFormSubmit = (formData) => {
-    authApi.logIn(formData).then(
-      (data) => {
-        if (!data) { return; }
-        if (data.status < 0) {
-          console.error(`Auth API: ${data.status} ${data.message}`);
-          return;
-        }
-        props.fetchAuthData(true);
-      }
+  componentDidMount() {
+    this.props.fetchAuthData(true);
+  }
+  // ---------------------------------------------------
+  render() {
+    if (this.props.isAuthenticated && this.props.user) {
+      return (
+        <Redirect to={`/profile/${this.props.user.id}`} />
+      );
+    }
+    return (
+      <LogIn {...this.props} onFormSubmit={this.props.fetchLoggedStatus} />
     );
-  };
+  }
   // ---------------------------------------------------
-  return (<LogIn {...props} onFormSubmit={logInFormSubmit} />);
 };
 
 const LogInContainer = connect(mapStateToProps, actions)(LogInApi);

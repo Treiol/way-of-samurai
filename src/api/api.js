@@ -32,7 +32,7 @@ export const authApi = {
   },
   // ---------------------------------------------------
   logOut() {
-    return axiosInstance.post('auth', { log_out: 'log_out' }).then(
+    return axiosInstance.post('auth', { log_out: '' }).then(
       (response) => {
         if (response.status >= 400) {
           console.error(`Auth API: ${response.status} ${response.statusText}`);
