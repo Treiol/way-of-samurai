@@ -1,4 +1,3 @@
-import React        from 'react';
 import { connect }  from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
@@ -13,23 +12,15 @@ const mapStateToProps = (state) => ({
   user:            state.authData.user
 });
 
-class LogInApi extends React.Component {
-  // ---------------------------------------------------
-  componentDidMount() {
-    this.props.fetchAuthData(true);
-  }
-  // ---------------------------------------------------
-  render() {
-    if (this.props.isAuthenticated && this.props.user) {
-      return (
-        <Redirect to={`/profile/${this.props.user.id}`} />
-      );
-    }
+const LogInApi = (props) => {
+  if (props.isAuthenticated && props.user) {
     return (
-      <LogIn {...this.props} onFormSubmit={this.props.fetchLoggedStatus} />
+      <Redirect to={`/profile/${props.user.id}`} />
     );
   }
-  // ---------------------------------------------------
+  return (
+    <LogIn {...props} onFormSubmit={props.fetchLoggedStatus} />
+  );
 };
 
 const LogInContainer = connect(mapStateToProps, actions)(LogInApi);
